@@ -652,6 +652,26 @@ export async function updateJourneyAction(id: number, step: Omit<JourneyStep, "i
 // 9. CERTIFICATION ACTIONS
 export async function getCertificationsAction(): Promise<Certification[]> {
   try {
+    // Self-healing table creation
+    await sql`
+      CREATE TABLE IF NOT EXISTS khashab_certifications (
+        id VARCHAR(255) PRIMARY KEY,
+        name TEXT NOT NULL,
+        logo TEXT NOT NULL
+      );
+    `;
+    
+    // Self-healing seed check
+    const check = await sql`SELECT COUNT(*) as count FROM khashab_certifications`;
+    if (check.rows[0].count === '0' || check.rows[0].count === 0) {
+      for (const cert of defaultCerts) {
+        await sql`
+          INSERT INTO khashab_certifications (id, name, logo)
+          VALUES (${cert.id}, ${cert.name}, ${cert.logo})
+        `;
+      }
+    }
+
     const { rows } = await sql`SELECT * FROM khashab_certifications ORDER BY id ASC`;
     return rows as Certification[];
   } catch (error) {
@@ -662,6 +682,13 @@ export async function getCertificationsAction(): Promise<Certification[]> {
 
 export async function addCertificationAction(cert: Omit<Certification, "id">) {
   try {
+    await sql`
+      CREATE TABLE IF NOT EXISTS khashab_certifications (
+        id VARCHAR(255) PRIMARY KEY,
+        name TEXT NOT NULL,
+        logo TEXT NOT NULL
+      );
+    `;
     const id = `cert-${Date.now()}`;
     await sql`
       INSERT INTO khashab_certifications (id, name, logo)
@@ -676,6 +703,13 @@ export async function addCertificationAction(cert: Omit<Certification, "id">) {
 
 export async function deleteCertificationAction(id: string) {
   try {
+    await sql`
+      CREATE TABLE IF NOT EXISTS khashab_certifications (
+        id VARCHAR(255) PRIMARY KEY,
+        name TEXT NOT NULL,
+        logo TEXT NOT NULL
+      );
+    `;
     await sql`DELETE FROM khashab_certifications WHERE id = ${id}`;
     return { success: true };
   } catch (error) {
