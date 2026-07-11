@@ -55,8 +55,6 @@ export default function AdminPage() {
     }
   };
 
-  // Logo Edit State
-  const [logoInput, setLogoInput] = useState("");
   // Project Form State
   const [isEditingProj, setIsEditingProj] = useState(false);
   const [editingProjId, setEditingProjId] = useState("");
@@ -93,15 +91,6 @@ export default function AdminPage() {
     );
   }
 
-  // Logo Submit Handler
-  const handleLogoSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (logoInput.trim()) {
-      updateLogo(logoInput.trim());
-      setLogoInput("");
-      alert("Logo text updated successfully!");
-    }
-  };
 
   // Project Submit Handler
   const handleProjectSubmit = (e: React.FormEvent) => {
@@ -278,32 +267,13 @@ export default function AdminPage() {
             <div>
               <h3 className="font-serif text-lg text-primary mb-2">Change Site Branding Logo</h3>
               <p className="text-stone-500 font-light text-xs">
-                Enter text logo (e.g. KhashabSA) OR upload an image logo to replace the header and footer brand tags.
+                Upload a custom image logo (such as a transparent PNG) to represent the KhashabSA brand across the header and footer navigation tags.
               </p>
             </div>
 
-            <form onSubmit={handleLogoSubmit} className="space-y-4">
-              <div>
-                <label className="block text-xs font-semibold uppercase text-stone-600 tracking-wider mb-2">
-                  Logo Text
-                </label>
-                <input
-                  type="text"
-                  required
-                  placeholder={logo.startsWith("data:") || logo.startsWith("http") ? "Image logo is active" : logo}
-                  value={logoInput}
-                  onChange={(e) => setLogoInput(e.target.value)}
-                  className="w-full px-4 py-3 border border-stone-200 text-sm focus:outline-none focus:border-accent bg-white text-stone-900"
-                />
-              </div>
-              <button type="submit" className="btn-primary py-3 text-xs tracking-wider w-full">
-                Save Logo Text
-              </button>
-            </form>
-
-            <div className="border-t border-stone-150 pt-6">
+            <div>
               <label className="block text-xs font-semibold uppercase text-stone-600 tracking-wider mb-2">
-                Or Upload Logo Image
+                Upload Logo Image
               </label>
               <input
                 type="file"

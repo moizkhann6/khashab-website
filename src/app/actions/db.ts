@@ -106,9 +106,9 @@ export async function initDbAction() {
     await sql`
       CREATE TABLE IF NOT EXISTS khashab_projects (
         id VARCHAR(255) PRIMARY KEY,
-        title VARCHAR(255) NOT NULL,
-        category VARCHAR(255) NOT NULL,
-        location VARCHAR(255) NOT NULL,
+        title TEXT NOT NULL,
+        category TEXT NOT NULL,
+        location TEXT NOT NULL,
         description TEXT NOT NULL,
         image TEXT NOT NULL,
         specs TEXT[] NOT NULL
@@ -118,8 +118,8 @@ export async function initDbAction() {
     await sql`
       CREATE TABLE IF NOT EXISTS khashab_clients (
         id VARCHAR(255) PRIMARY KEY,
-        name VARCHAR(255) NOT NULL,
-        role VARCHAR(255) NOT NULL
+        name TEXT NOT NULL,
+        role TEXT NOT NULL
       );
     `;
 
@@ -127,33 +127,53 @@ export async function initDbAction() {
       CREATE TABLE IF NOT EXISTS khashab_slides (
         id INT PRIMARY KEY,
         image TEXT NOT NULL,
-        category VARCHAR(255) NOT NULL,
-        title VARCHAR(255) NOT NULL,
+        category TEXT NOT NULL,
+        title TEXT NOT NULL,
         subtitle TEXT NOT NULL,
-        link_text VARCHAR(255) NOT NULL,
-        link_href VARCHAR(255) NOT NULL
+        link_text TEXT NOT NULL,
+        link_href TEXT NOT NULL
       );
     `;
 
     await sql`
       CREATE TABLE IF NOT EXISTS khashab_inquiries (
         id VARCHAR(255) PRIMARY KEY,
-        name VARCHAR(255) NOT NULL,
-        company VARCHAR(255) NOT NULL,
-        email VARCHAR(255) NOT NULL,
-        phone VARCHAR(255) NOT NULL,
-        category VARCHAR(255) NOT NULL,
-        volume VARCHAR(255) NOT NULL,
+        name TEXT NOT NULL,
+        company TEXT NOT NULL,
+        email TEXT NOT NULL,
+        phone TEXT NOT NULL,
+        category TEXT NOT NULL,
+        volume TEXT NOT NULL,
         details TEXT NOT NULL,
-        date VARCHAR(255) NOT NULL,
+        date TEXT NOT NULL,
         read BOOLEAN DEFAULT FALSE
       );
     `;
 
     // Alter column types to TEXT if the tables were previously created with VARCHAR(255) limits
     await sql`ALTER TABLE khashab_logo ALTER COLUMN logo_text TYPE TEXT;`;
+    
+    await sql`ALTER TABLE khashab_projects ALTER COLUMN title TYPE TEXT;`;
+    await sql`ALTER TABLE khashab_projects ALTER COLUMN category TYPE TEXT;`;
+    await sql`ALTER TABLE khashab_projects ALTER COLUMN location TYPE TEXT;`;
     await sql`ALTER TABLE khashab_projects ALTER COLUMN image TYPE TEXT;`;
+
+    await sql`ALTER TABLE khashab_clients ALTER COLUMN name TYPE TEXT;`;
+    await sql`ALTER TABLE khashab_clients ALTER COLUMN role TYPE TEXT;`;
+
     await sql`ALTER TABLE khashab_slides ALTER COLUMN image TYPE TEXT;`;
+    await sql`ALTER TABLE khashab_slides ALTER COLUMN category TYPE TEXT;`;
+    await sql`ALTER TABLE khashab_slides ALTER COLUMN title TYPE TEXT;`;
+    await sql`ALTER TABLE khashab_slides ALTER COLUMN link_text TYPE TEXT;`;
+    await sql`ALTER TABLE khashab_slides ALTER COLUMN link_href TYPE TEXT;`;
+
+    await sql`ALTER TABLE khashab_inquiries ALTER COLUMN name TYPE TEXT;`;
+    await sql`ALTER TABLE khashab_inquiries ALTER COLUMN company TYPE TEXT;`;
+    await sql`ALTER TABLE khashab_inquiries ALTER COLUMN email TYPE TEXT;`;
+    await sql`ALTER TABLE khashab_inquiries ALTER COLUMN phone TYPE TEXT;`;
+    await sql`ALTER TABLE khashab_inquiries ALTER COLUMN category TYPE TEXT;`;
+    await sql`ALTER TABLE khashab_inquiries ALTER COLUMN volume TYPE TEXT;`;
+    await sql`ALTER TABLE khashab_inquiries ALTER COLUMN date TYPE TEXT;`;
 
     // B. Seed Default Logo
     const logoCheck = await sql`SELECT * FROM khashab_logo LIMIT 1`;
