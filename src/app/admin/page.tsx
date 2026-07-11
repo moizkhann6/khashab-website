@@ -34,6 +34,14 @@ export default function AdminPage() {
     certifications,
     addCertification,
     deleteCertification,
+    aboutBg,
+    servicesBg,
+    healthcarePageBg,
+    contactBg,
+    updateAboutBg,
+    updateServicesBg,
+    updateHealthcarePageBg,
+    updateContactBg,
   } = useDb();
 
   const [activeTab, setActiveTab] = useState<AdminTab>("dashboard");
@@ -380,6 +388,94 @@ export default function AdminPage() {
                 )}
               </div>
               {isUploading && <span className="text-[10px] text-accent animate-pulse block mt-1">Uploading background...</span>}
+            </div>
+
+            {/* About Page Hero BG */}
+            <div className="border-t border-stone-200 pt-6">
+              <h3 className="font-serif text-lg text-primary mb-2">About Page Hero Background</h3>
+              <p className="text-stone-550 font-light text-xs mb-4">
+                Upload a custom high-resolution background image for the About Page header banner.
+              </p>
+              <div className="flex items-center gap-4">
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => handleImageUpload(e, (url) => updateAboutBg(url))}
+                  disabled={isUploading}
+                  className="w-full px-4 py-2 border border-stone-200 text-sm focus:outline-none focus:border-accent bg-white text-stone-900 cursor-pointer"
+                />
+                {aboutBg && (
+                  <div className="w-16 h-12 relative border border-stone-200 shrink-0 bg-stone-100 flex items-center justify-center overflow-hidden">
+                    <img src={aboutBg} alt="About Preview" className="w-full h-full object-cover" />
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Services Page Hero BG */}
+            <div className="border-t border-stone-200 pt-6">
+              <h3 className="font-serif text-lg text-primary mb-2">Services Page Hero Background</h3>
+              <p className="text-stone-550 font-light text-xs mb-4">
+                Upload a custom high-resolution background image for the Services & Offerings Page header banner.
+              </p>
+              <div className="flex items-center gap-4">
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => handleImageUpload(e, (url) => updateServicesBg(url))}
+                  disabled={isUploading}
+                  className="w-full px-4 py-2 border border-stone-200 text-sm focus:outline-none focus:border-accent bg-white text-stone-900 cursor-pointer"
+                />
+                {servicesBg && (
+                  <div className="w-16 h-12 relative border border-stone-200 shrink-0 bg-stone-100 flex items-center justify-center overflow-hidden">
+                    <img src={servicesBg} alt="Services Preview" className="w-full h-full object-cover" />
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Healthcare Page Hero BG */}
+            <div className="border-t border-stone-200 pt-6">
+              <h3 className="font-serif text-lg text-primary mb-2">Healthcare Page Hero Background</h3>
+              <p className="text-stone-550 font-light text-xs mb-4">
+                Upload a custom high-resolution background image for the Healthcare Specialized Solutions Page header banner.
+              </p>
+              <div className="flex items-center gap-4">
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => handleImageUpload(e, (url) => updateHealthcarePageBg(url))}
+                  disabled={isUploading}
+                  className="w-full px-4 py-2 border border-stone-200 text-sm focus:outline-none focus:border-accent bg-white text-stone-900 cursor-pointer"
+                />
+                {healthcarePageBg && (
+                  <div className="w-16 h-12 relative border border-stone-200 shrink-0 bg-stone-100 flex items-center justify-center overflow-hidden">
+                    <img src={healthcarePageBg} alt="Healthcare Page Preview" className="w-full h-full object-cover" />
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Contact Page Hero BG */}
+            <div className="border-t border-stone-200 pt-6">
+              <h3 className="font-serif text-lg text-primary mb-2">Contact Page Hero Background</h3>
+              <p className="text-stone-550 font-light text-xs mb-4">
+                Upload a custom high-resolution background image for the Contact & Partners Page header banner.
+              </p>
+              <div className="flex items-center gap-4">
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => handleImageUpload(e, (url) => updateContactBg(url))}
+                  disabled={isUploading}
+                  className="w-full px-4 py-2 border border-stone-200 text-sm focus:outline-none focus:border-accent bg-white text-stone-900 cursor-pointer"
+                />
+                {contactBg && (
+                  <div className="w-16 h-12 relative border border-stone-200 shrink-0 bg-stone-100 flex items-center justify-center overflow-hidden">
+                    <img src={contactBg} alt="Contact Preview" className="w-full h-full object-cover" />
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         )}

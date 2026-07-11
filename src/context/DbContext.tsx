@@ -28,6 +28,14 @@ import {
   getCertificationsAction,
   addCertificationAction,
   deleteCertificationAction,
+  getAboutBgAction,
+  updateAboutBgAction,
+  getServicesBgAction,
+  updateServicesBgAction,
+  getHealthcarePageBgAction,
+  updateHealthcarePageBgAction,
+  getContactBgAction,
+  updateContactBgAction,
   CategoryItem,
   JourneyStep,
   Certification,
@@ -89,6 +97,14 @@ interface DbContextType {
   certifications: Certification[];
   addCertification: (cert: Omit<Certification, "id">) => Promise<void>;
   deleteCertification: (id: string) => Promise<void>;
+  aboutBg: string;
+  servicesBg: string;
+  healthcarePageBg: string;
+  contactBg: string;
+  updateAboutBg: (url: string) => Promise<void>;
+  updateServicesBg: (url: string) => Promise<void>;
+  updateHealthcarePageBg: (url: string) => Promise<void>;
+  updateContactBg: (url: string) => Promise<void>;
 }
 
 const DbContext = createContext<DbContextType | undefined>(undefined);
@@ -103,6 +119,10 @@ export function DbProvider({ children }: { children: React.ReactNode }) {
   const [journeySteps, setJourneySteps] = useState<JourneyStep[]>([]);
   const [healthcareBg, setHealthcareBg] = useState("/images/healthcare.jpg");
   const [certifications, setCertifications] = useState<Certification[]>([]);
+  const [aboutBg, setAboutBg] = useState("/images/residential.jpg");
+  const [servicesBg, setServicesBg] = useState("/images/commercial.jpg");
+  const [healthcarePageBg, setHealthcarePageBg] = useState("/images/healthcare.jpg");
+  const [contactBg, setContactBg] = useState("/images/residential.jpg");
   const [isLoaded, setIsLoaded] = useState(false);
 
   // Initialize and load Postgres database on mount
@@ -110,7 +130,7 @@ export function DbProvider({ children }: { children: React.ReactNode }) {
     async function loadDatabase() {
       try {
         // A. Fetch Data from Postgres directly (extremely fast bypass)
-        const [dbLogo, dbProjects, dbClients, dbSlides, dbInquiries, dbCategories, dbJourney, dbHealthcareBg, dbCerts] = await Promise.all([
+        const [dbLogo, dbProjects, dbClients, dbSlides, dbInquiries, dbCategories, dbJourney, dbHealthcareBg, dbCerts, dbAboutBg, dbServicesBg, dbHealthcarePageBg, dbContactBg] = await Promise.all([
           getLogoAction(),
           getProjectsAction(),
           getClientsAction(),
@@ -120,6 +140,10 @@ export function DbProvider({ children }: { children: React.ReactNode }) {
           getJourneyAction(),
           getHealthcareBgAction(),
           getCertificationsAction(),
+          getAboutBgAction(),
+          getServicesBgAction(),
+          getHealthcarePageBgAction(),
+          getContactBgAction(),
         ]);
 
         setLogo(dbLogo);
@@ -131,6 +155,10 @@ export function DbProvider({ children }: { children: React.ReactNode }) {
         setJourneySteps(dbJourney);
         setHealthcareBg(dbHealthcareBg);
         setCertifications(dbCerts);
+        setAboutBg(dbAboutBg);
+        setServicesBg(dbServicesBg);
+        setHealthcarePageBg(dbHealthcarePageBg);
+        setContactBg(dbContactBg);
       } catch (error) {
         console.warn("Database tables might not exist, self-healing initialization in progress...", error);
         try {
@@ -138,7 +166,7 @@ export function DbProvider({ children }: { children: React.ReactNode }) {
           await initDbAction();
 
           // C. Re-fetch after seeding completes
-          const [dbLogo, dbProjects, dbClients, dbSlides, dbInquiries, dbCategories, dbJourney, dbHealthcareBg, dbCerts] = await Promise.all([
+          const [dbLogo, dbProjects, dbClients, dbSlides, dbInquiries, dbCategories, dbJourney, dbHealthcareBg, dbCerts, dbAboutBg, dbServicesBg, dbHealthcarePageBg, dbContactBg] = await Promise.all([
             getLogoAction(),
             getProjectsAction(),
             getClientsAction(),
@@ -148,6 +176,10 @@ export function DbProvider({ children }: { children: React.ReactNode }) {
             getJourneyAction(),
             getHealthcareBgAction(),
             getCertificationsAction(),
+            getAboutBgAction(),
+            getServicesBgAction(),
+            getHealthcarePageBgAction(),
+            getContactBgAction(),
           ]);
 
           setLogo(dbLogo);
@@ -159,6 +191,10 @@ export function DbProvider({ children }: { children: React.ReactNode }) {
           setJourneySteps(dbJourney);
           setHealthcareBg(dbHealthcareBg);
           setCertifications(dbCerts);
+          setAboutBg(dbAboutBg);
+          setServicesBg(dbServicesBg);
+          setHealthcarePageBg(dbHealthcarePageBg);
+          setContactBg(dbContactBg);
         } catch (initError) {
           console.error("Critical error during self-healing database load:", initError);
         }
@@ -321,6 +357,46 @@ export function DbProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const updateAboutBg = async (url: string) => {
+    setAboutBg(url);
+    const result = await updateAboutBgAction(url);
+    if (!result.success) {
+      alert("Failed to update about background: " + result.error);
+      const dbBg = await getAboutBgAction();
+      setAboutBg(dbBg);
+    }
+  };
+
+  const updateServicesBg = async (url: string) => {
+    setServicesBg(url);
+    const result = await updateServicesBgAction(url);
+    if (!result.success) {
+      alert("Failed to update services background: " + result.error);
+      const dbBg = await getServicesBgAction();
+      setServicesBg(dbBg);
+    }
+  };
+
+  const updateHealthcarePageBg = async (url: string) => {
+    setHealthcarePageBg(url);
+    const result = await updateHealthcarePageBgAction(url);
+    if (!result.success) {
+      alert("Failed to update healthcare page background: " + result.error);
+      const dbBg = await getHealthcarePageBgAction();
+      setHealthcarePageBg(dbBg);
+    }
+  };
+
+  const updateContactBg = async (url: string) => {
+    setContactBg(url);
+    const result = await updateContactBgAction(url);
+    if (!result.success) {
+      alert("Failed to update contact background: " + result.error);
+      const dbBg = await getContactBgAction();
+      setContactBg(dbBg);
+    }
+  };
+
   return (
     <DbContext.Provider
       value={{
@@ -349,6 +425,14 @@ export function DbProvider({ children }: { children: React.ReactNode }) {
         certifications,
         addCertification,
         deleteCertification,
+        aboutBg,
+        servicesBg,
+        healthcarePageBg,
+        contactBg,
+        updateAboutBg,
+        updateServicesBg,
+        updateHealthcarePageBg,
+        updateContactBg,
       }}
     >
       {children}

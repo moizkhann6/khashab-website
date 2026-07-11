@@ -2,9 +2,11 @@
 
 import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
+import { useDb } from "@/context/DbContext";
 
 export default function HealthcareContent() {
   const { t } = useLanguage();
+  const { healthcarePageBg } = useDb();
 
   const complianceStandards = [
     {
@@ -39,15 +41,21 @@ export default function HealthcareContent() {
   return (
     <div className="bg-white">
       {/* Header Banner */}
-      <section className="bg-sand-light py-20 lg:py-28 border-b border-stone-100">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 text-left">
+      <section 
+        className="relative py-28 lg:py-36 bg-cover bg-center border-b border-stone-900 overflow-hidden"
+        style={{ backgroundImage: `url('${healthcarePageBg}')` }}
+      >
+        {/* Dark overlay for readability */}
+        <div className="absolute inset-0 bg-stone-950/60 z-0" />
+        
+        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 text-left text-white">
           <span className="text-xs font-bold text-accent uppercase tracking-widest block mb-4">
             {t("health.page_label")}
           </span>
-          <h1 className="text-4xl lg:text-5xl font-serif text-primary leading-tight max-w-3xl font-medium">
+          <h1 className="text-4xl lg:text-5xl font-serif text-white leading-tight max-w-3xl font-medium">
             {t("health.page_title")}
           </h1>
-          <p className="mt-4 text-stone-500 font-light text-base max-w-xl">
+          <p className="mt-4 text-stone-300 font-light text-base max-w-xl">
             {t("health.page_subtitle")}
           </p>
         </div>

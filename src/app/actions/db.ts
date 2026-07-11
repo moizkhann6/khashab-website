@@ -297,6 +297,15 @@ export async function initDbAction() {
       console.error("Migration error adding logo column to khashab_clients:", e);
     }
 
+    try {
+      await sql`ALTER TABLE khashab_logo ADD COLUMN IF NOT EXISTS about_bg TEXT DEFAULT '/images/residential.jpg';`;
+      await sql`ALTER TABLE khashab_logo ADD COLUMN IF NOT EXISTS services_bg TEXT DEFAULT '/images/commercial.jpg';`;
+      await sql`ALTER TABLE khashab_logo ADD COLUMN IF NOT EXISTS healthcare_page_bg TEXT DEFAULT '/images/healthcare.jpg';`;
+      await sql`ALTER TABLE khashab_logo ADD COLUMN IF NOT EXISTS contact_bg TEXT DEFAULT '/images/residential.jpg';`;
+    } catch (e) {
+      console.error("Migration error adding background fields to khashab_logo:", e);
+    }
+
     // B. Seed Default Settings & Logo
     const logoCheck = await sql`SELECT * FROM khashab_logo LIMIT 1`;
     if (logoCheck.rowCount === 0) {
@@ -429,6 +438,110 @@ export async function updateHealthcareBgAction(url: string) {
     return { success: true };
   } catch (error) {
     console.error("Error updating healthcare bg:", error);
+    return { success: false, error: String(error) };
+  }
+}
+
+export async function getAboutBgAction(): Promise<string> {
+  try {
+    const { rows } = await sql`SELECT about_bg FROM khashab_logo LIMIT 1`;
+    if (rows.length > 0 && rows[0].about_bg) return rows[0].about_bg;
+    return "/images/residential.jpg";
+  } catch (error) {
+    console.error("Error fetching about bg:", error);
+    return "/images/residential.jpg";
+  }
+}
+
+export async function updateAboutBgAction(url: string) {
+  try {
+    const check = await sql`SELECT * FROM khashab_logo LIMIT 1`;
+    if (check.rows.length > 0) {
+      await sql`UPDATE khashab_logo SET about_bg = ${url}`;
+    } else {
+      await sql`INSERT INTO khashab_logo (logo_text, about_bg) VALUES ('KhashabSA', ${url})`;
+    }
+    return { success: true };
+  } catch (error) {
+    console.error("Error updating about bg:", error);
+    return { success: false, error: String(error) };
+  }
+}
+
+export async function getServicesBgAction(): Promise<string> {
+  try {
+    const { rows } = await sql`SELECT services_bg FROM khashab_logo LIMIT 1`;
+    if (rows.length > 0 && rows[0].services_bg) return rows[0].services_bg;
+    return "/images/commercial.jpg";
+  } catch (error) {
+    console.error("Error fetching services bg:", error);
+    return "/images/commercial.jpg";
+  }
+}
+
+export async function updateServicesBgAction(url: string) {
+  try {
+    const check = await sql`SELECT * FROM khashab_logo LIMIT 1`;
+    if (check.rows.length > 0) {
+      await sql`UPDATE khashab_logo SET services_bg = ${url}`;
+    } else {
+      await sql`INSERT INTO khashab_logo (logo_text, services_bg) VALUES ('KhashabSA', ${url})`;
+    }
+    return { success: true };
+  } catch (error) {
+    console.error("Error updating services bg:", error);
+    return { success: false, error: String(error) };
+  }
+}
+
+export async function getHealthcarePageBgAction(): Promise<string> {
+  try {
+    const { rows } = await sql`SELECT healthcare_page_bg FROM khashab_logo LIMIT 1`;
+    if (rows.length > 0 && rows[0].healthcare_page_bg) return rows[0].healthcare_page_bg;
+    return "/images/healthcare.jpg";
+  } catch (error) {
+    console.error("Error fetching healthcare page bg:", error);
+    return "/images/healthcare.jpg";
+  }
+}
+
+export async function updateHealthcarePageBgAction(url: string) {
+  try {
+    const check = await sql`SELECT * FROM khashab_logo LIMIT 1`;
+    if (check.rows.length > 0) {
+      await sql`UPDATE khashab_logo SET healthcare_page_bg = ${url}`;
+    } else {
+      await sql`INSERT INTO khashab_logo (logo_text, healthcare_page_bg) VALUES ('KhashabSA', ${url})`;
+    }
+    return { success: true };
+  } catch (error) {
+    console.error("Error updating healthcare page bg:", error);
+    return { success: false, error: String(error) };
+  }
+}
+
+export async function getContactBgAction(): Promise<string> {
+  try {
+    const { rows } = await sql`SELECT contact_bg FROM khashab_logo LIMIT 1`;
+    if (rows.length > 0 && rows[0].contact_bg) return rows[0].contact_bg;
+    return "/images/residential.jpg";
+  } catch (error) {
+    console.error("Error fetching contact bg:", error);
+    return "/images/residential.jpg";
+  }
+}
+
+export async function updateContactBgAction(url: string) {
+  try {
+    const check = await sql`SELECT * FROM khashab_logo LIMIT 1`;
+    if (check.rows.length > 0) {
+      await sql`UPDATE khashab_logo SET contact_bg = ${url}`;
+    } else {
+      await sql`INSERT INTO khashab_logo (logo_text, contact_bg) VALUES ('KhashabSA', ${url})`;
+    }
+    return { success: true };
+  } catch (error) {
+    console.error("Error updating contact bg:", error);
     return { success: false, error: String(error) };
   }
 }
