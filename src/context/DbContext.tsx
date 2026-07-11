@@ -101,10 +101,7 @@ export function DbProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     async function loadDatabase() {
       try {
-        // A. Run Table Creation and Seeding (Safe, runs if tables don't exist)
-        await initDbAction();
-
-        // B. Fetch Data from Postgres via Server Actions
+        // A. Fetch Data from Postgres directly (extremely fast bypass)
         const [dbLogo, dbProjects, dbClients, dbSlides, dbInquiries, dbCategories, dbJourney, dbHealthcareBg] = await Promise.all([
           getLogoAction(),
           getProjectsAction(),
@@ -125,7 +122,34 @@ export function DbProvider({ children }: { children: React.ReactNode }) {
         setJourneySteps(dbJourney);
         setHealthcareBg(dbHealthcareBg);
       } catch (error) {
-        console.error("Error loading server database:", error);
+        console.warn("Database tables might not exist, self-healing initialization in progress...", error);
+        try {
+          // B. Table creation and Seeding Fallback (runs only if direct fetches fail)
+          await initDbAction();
+
+          // C. Re-fetch after seeding completes
+          const [dbLogo, dbProjects, dbClients, dbSlides, dbInquiries, dbCategories, dbJourney, dbHealthcareBg] = await Promise.all([
+            getLogoAction(),
+            getProjectsAction(),
+            getClientsAction(),
+            getSlidesAction(),
+            getInquiriesAction(),
+            getCategoriesAction(),
+            getJourneyAction(),
+            getHealthcareBgAction(),
+          ]);
+
+          setLogo(dbLogo);
+          setProjects(dbProjects);
+          setClients(dbClients);
+          setSlides(dbSlides);
+          setInquiries(dbInquiries);
+          setCategories(dbCategories);
+          setJourneySteps(dbJourney);
+          setHealthcareBg(dbHealthcareBg);
+        } catch (initError) {
+          console.error("Critical error during self-healing database load:", initError);
+        }
       } finally {
         setIsLoaded(true);
       }
