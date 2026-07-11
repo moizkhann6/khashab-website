@@ -1,0 +1,106 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #1c1917;      /* Sand Charcoal */
+  --color-accent: #8c6239;       /* Muted Walnut Wood */
+  --color-accent-hover: #734e2c; /* Deeper Walnut */
+  --color-sand: #f5f5f4;         /* Soft Sand Gray */
+  --color-sand-light: #fafaf9;   /* Eggshell sand */
+  --font-serif: var(--font-serif);
+  --font-sans: var(--font-sans);
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #1c1917;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), sans-serif;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif), serif;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+/* Premium 2D interactive micro-animations (Strictly 2D, NO shadows or gradients) */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background-color: #1c1917;
+  color: #ffffff;
+  border: 1px solid #1c1917;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background-color: #8c6239;
+  border-color: #8c6239;
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background-color: transparent;
+  color: #1c1917;
+  border: 1px solid #1c1917;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  background-color: #1c1917;
+  color: #ffffff;
+}
+
+.card-2d {
+  background-color: #ffffff;
+  border: 1px solid #e7e5e4;
+  transition: all 0.2s ease;
+}
+
+.card-2d:hover {
+  border-color: #8c6239;
+}
+
+/* Minimalist border transition for links */
+.link-underline {
+  position: relative;
+}
+
+.link-underline::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 1px;
+  bottom: -2px;
+  left: 0;
+  background-color: currentColor;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
+.link-underline:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
