@@ -3,12 +3,13 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-
 import { useDb } from "@/context/DbContext";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function HeroSlider() {
   const [current, setCurrent] = useState(0);
   const { slides, isLoaded } = useDb();
+  const { t } = useLanguage();
 
   useEffect(() => {
     if (slides.length === 0) return;
@@ -31,7 +32,7 @@ export default function HeroSlider() {
   if (!isLoaded || slides.length === 0) {
     return (
       <div className="h-[650px] lg:h-[750px] bg-stone-950 flex items-center justify-center text-stone-400 font-serif text-sm tracking-wider">
-        Loading Presentation...
+        {t("hero.loading")}
       </div>
     );
   }
@@ -88,7 +89,7 @@ export default function HeroSlider() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link href="/contact" className="btn-primary bg-white text-stone-950 border-white hover:bg-[#c59b6d] hover:border-[#c59b6d] hover:text-white">
-                  Request Specifications
+                  {t("hero.btn_specs")}
                 </Link>
                 <Link href={slide.linkHref} className="btn-secondary border-white text-white hover:bg-white hover:text-stone-950">
                   {slide.linkText}

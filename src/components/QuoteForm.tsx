@@ -147,7 +147,7 @@ export default function QuoteForm() {
             {/* Phone Number */}
             <div>
               <label htmlFor="phone" className="block text-xs font-semibold text-stone-700 uppercase tracking-wider mb-2">
-                {t("contact.input_phone").split(" ")[0]} *
+                {t("contact.phone_label")} *
               </label>
               <input
                 type="tel"

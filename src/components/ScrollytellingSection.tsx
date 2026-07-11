@@ -108,7 +108,7 @@ export default function ScrollytellingSection() {
                   0{idx + 1}
                 </span>
                 <span className="text-[10px] font-bold tracking-widest text-stone-400 uppercase">
-                  {t("journey.stage").split(" ")[0]} {idx + 1} {t("nav.home") === "الرئيسية" ? "من" : "of"} {journeySteps.length}
+                  {t("journey.stage").split(" ")[0]} {idx + 1} {t("journey.of")} {journeySteps.length}
                 </span>
               </div>
 

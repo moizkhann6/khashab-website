@@ -8,53 +8,19 @@ export default function ServicesContent() {
   const { t } = useLanguage();
 
   const comprehensiveServices = [
-    { 
-      title: t("nav.home") === "الرئيسية" ? "الديكورات الداخلية والخارجية" : "Interior & Exterior Decorations", 
-      desc: t("nav.home") === "الرئيسية" ? "تكسية الجدران الخشبية المعمارية الفاخرة، والأسقف المستعارة، وتجهيزات المداخل." : "Premium architectural wooden wall paneling, ceiling grids, slatted features, and entrance claddings." 
-    },
-    { 
-      title: t("nav.home") === "الرئيسية" ? "المعارض وصالات العرض" : "Exhibitions & Showrooms", 
-      desc: t("nav.home") === "الرئيسية" ? "أجنحة العرض الخشبية المتطورة ومنصات عرض المنتجات المصممة للمعارض والمحافل الكبرى." : "Sophisticated wooden booths and product showcase stands engineered for high-traffic presentation." 
-    },
-    { 
-      title: t("nav.home") === "الرئيسية" ? "المطاعم والمقاهي" : "Restaurants & Cafes", 
-      desc: t("nav.home") === "الرئيسية" ? "طاولات مخصصة متينة، كاونترات استقبال، تكسية جدران، وجلسات طعام مصنوعة بمواصفات الضيافة." : "Durable custom tables, counters, wall cladding, and booth seating crafted to hospitality specifications." 
-    },
-    { 
-      title: t("nav.home") === "الرئيسية" ? "مناطق ألعاب الأطفال" : "Children's Play Areas", 
-      desc: t("nav.home") === "الرئيسية" ? "هياكل خشبية آمنة ومصقولة وغير سامة، بيوت لعب وأثاث نشاط معياري للأطفال." : "Sanded, non-toxic, safe wooden structures, playhouses, and modular activity furniture." 
-    },
-    { 
-      title: t("nav.home") === "الرئيسية" ? "العيادات والمختبرات الطبية" : "Clinics & Laboratories", 
-      desc: t("nav.home") === "الرئيسية" ? "تجهيزات خشبية معقمة وغير مسامية، ألواح صحية، وخزائن علاج مخصصة للمنشآت الطبية." : "Sterile, non-porous chemical casework, hygiene panels, and custom treatment cabinets." 
-    },
-    { 
-      title: t("nav.home") === "الرئيسية" ? "المنازل والفيلات الفاخرة" : "Premium Homes & Villas", 
-      desc: t("nav.home") === "الرئيسية" ? "باقات تجهيز خشبية منزلية كاملة تشمل الأبواب الفاخرة، المطابخ، وخزائن الملابس." : "Complete bespoke home fit-out packages encompassing doors, closets, kitchens, and wall decor." 
-    },
+    { titleKey: "services.comp_1_title", descKey: "services.comp_1_desc" },
+    { titleKey: "services.comp_2_title", descKey: "services.comp_2_desc" },
+    { titleKey: "services.comp_3_title", descKey: "services.comp_3_desc" },
+    { titleKey: "services.comp_4_title", descKey: "services.comp_4_desc" },
+    { titleKey: "services.comp_5_title", descKey: "services.comp_5_desc" },
+    { titleKey: "services.comp_6_title", descKey: "services.comp_6_desc" },
   ];
 
   const steps = [
-    { 
-      number: "01", 
-      name: t("nav.home") === "الرئيسية" ? "استشارات CAD والرسومات" : "CAD Consultation", 
-      desc: t("nav.home") === "الرئيسية" ? "يقوم مكتبنا الهندسي بترجمة المخططات المعمارية إلى رسومات ورش عمل دقيقة." : "Our engineering office translates architectural designs into precise CAD shop drawings." 
-    },
-    { 
-      number: "02", 
-      name: t("nav.home") === "الرئيسية" ? "اختيار المواد الفاخرة" : "Material Selection", 
-      desc: t("nav.home") === "الرئيسية" ? "اختر من بين مجموعة من الأخشاب الصلبة الفاخرة المجففة لتناسب الرطوبة المحلية." : "Select from curated, sustainably-sourced premium hardwoods dried to local relative humidity specs." 
-    },
-    { 
-      number: "03", 
-      name: t("nav.home") === "الرئيسية" ? "خرط CNC الدقيق" : "Precision CNC", 
-      desc: t("nav.home") === "الرئيسية" ? "يضمن الفرم بالكمبيوتر دقة أبعاد مطلقة للألواح والوصلات الخشبية." : "Computer-controlled milling ensures absolute dimensional accuracy for all custom panels and joins." 
-    },
-    { 
-      number: "04", 
-      name: t("nav.home") === "الرئيسية" ? "التجميع والتشطيب اليدوي" : "Assembly & Finish", 
-      desc: t("nav.home") === "الرئيسية" ? "يقوم الحرفيون بالتجميع النهائي، السنفرة، وتطبيق الزيوت الطبيعية الحامية." : "Traditional carpenters handle final assembly, sandings, and hand-oil applications." 
-    },
+    { number: "01", nameKey: "services.step_1_name", descKey: "services.step_1_desc" },
+    { number: "02", nameKey: "services.step_2_name", descKey: "services.step_2_desc" },
+    { number: "03", nameKey: "services.step_3_name", descKey: "services.step_3_desc" },
+    { number: "04", nameKey: "services.step_4_name", descKey: "services.step_4_desc" },
   ];
 
   return (
@@ -65,8 +31,8 @@ export default function ServicesContent() {
           <span className="text-xs font-bold text-accent uppercase tracking-widest block mb-4">
             {t("services.label")}
           </span>
-          <h1 className="text-4xl lg:text-5xl font-serif text-primary leading-tight max-w-2xl text-left font-medium">
-            {t("nav.home") === "الرئيسية" ? "أعمال خشبية مخصصة مصممة حسب الطلب" : "Bespoke Woodwork Engineered to Specification"}
+          <h1 className="text-4xl lg:text-5xl font-serif text-primary leading-tight max-w-2xl font-medium">
+            {t("services.page_title")}
           </h1>
         </div>
       </section>
@@ -83,13 +49,13 @@ export default function ServicesContent() {
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="text-center max-w-2xl mx-auto mb-20">
             <span className="text-xs font-bold text-accent uppercase tracking-widest block mb-4">
-              {t("nav.home") === "الرئيسية" ? "أين نطبق مهاراتنا" : "Where We Apply Our Craft"}
+              {t("services.header_label")}
             </span>
             <h2 className="text-3xl font-serif text-primary font-medium">
-              {t("nav.home") === "الرئيسية" ? "خدمات التجهيز الخشبي الشاملة" : "Comprehensive Fitting & Fit-Out Services"}
+              {t("services.comp_title")}
             </h2>
             <p className="text-stone-550 font-light text-sm leading-relaxed mt-4">
-              {t("nav.home") === "الرئيسية" ? "نصمم وننشئ تجهيزات خشبية لمجموعة واسعة من القطاعات لضمان التميز التجاري والسكني." : "We design and construct wooden installations for a broad range of sectors, ensuring excellence in both commercial scale and private aesthetics."}
+              {t("services.comp_desc")}
             </p>
           </div>
 
@@ -98,10 +64,10 @@ export default function ServicesContent() {
               <div key={idx} className="card-2d bg-white p-8 h-full flex flex-col justify-between">
                 <div className="text-left">
                   <h3 className="font-serif text-lg text-primary mb-3 font-medium">
-                    {comp.title}
+                    {t(comp.titleKey)}
                   </h3>
                   <p className="text-stone-550 font-light text-xs leading-relaxed">
-                    {comp.desc}
+                    {t(comp.descKey)}
                   </p>
                 </div>
               </div>
@@ -115,10 +81,10 @@ export default function ServicesContent() {
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="text-center max-w-2xl mx-auto mb-20">
             <span className="text-xs font-bold text-accent uppercase tracking-widest block mb-4">
-              {t("footer.hq").split(" ")[0]} {t("footer.navigation")}
+              {t("services.process_label")}
             </span>
             <h2 className="text-3xl font-serif text-primary font-medium">
-              {t("nav.home") === "الرئيسية" ? "كيف نقدم حلولاً خشبية متكاملة" : "How We Deliver Custom Bespoke Solutions"}
+              {t("services.process_title")}
             </h2>
           </div>
 
@@ -129,10 +95,10 @@ export default function ServicesContent() {
                   {step.number}
                 </span>
                 <h3 className="font-serif text-lg text-primary mb-3 font-medium">
-                  {step.name}
+                  {t(step.nameKey)}
                 </h3>
                 <p className="text-stone-550 font-light text-xs leading-relaxed">
-                  {step.desc}
+                  {t(step.descKey)}
                 </p>
               </div>
             ))}
@@ -147,10 +113,10 @@ export default function ServicesContent() {
             {t("trust.title")}
           </h2>
           <p className="text-stone-500 font-light text-sm leading-relaxed mb-8">
-            {t("nav.home") === "الرئيسية" ? "هل تحتاج لعينات مواد، مواصفات معمارية، أو رسومات ورشة عمل لمناقصتك؟" : "Do you need material samples, architectural specifications, or custom shop drawings for your tender?"}
+            {t("services.cta_desc")}
           </p>
           <Link href="/contact" className="btn-primary">
-            {t("nav.home") === "الرئيسية" ? "طلب استشارة للمواصفات" : "Request Spec Consultation"}
+            {t("services.cta_btn")}
           </Link>
         </div>
       </section>

@@ -2,21 +2,22 @@
 
 import React, { useState, useEffect } from "react";
 import { useDb } from "@/context/DbContext";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function NewsletterPopup() {
   const { addInquiry } = useDb();
+  const { t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [subscribed, setSubscribed] = useState(false);
 
   useEffect(() => {
-    // Check if user already dismissed or subscribed
     const isDismissed = localStorage.getItem("khashab_newsletter_dismissed");
     if (!isDismissed) {
       const timer = setTimeout(() => {
         setIsOpen(true);
-      }, 2500); // 2.5 second delay
+      }, 2500);
       return () => clearTimeout(timer);
     }
   }, []);
@@ -32,7 +33,6 @@ export default function NewsletterPopup() {
 
     setIsSubmitting(true);
     try {
-      // Connect newsletter subscription to inquiries database log
       await addInquiry({
         name: "Newsletter Subscriber",
         company: "Public Signup",
@@ -78,13 +78,13 @@ export default function NewsletterPopup() {
         {!subscribed ? (
           <>
             <span className="text-[10px] font-bold text-accent uppercase tracking-widest block mb-2">
-              Bespoke Woodwork Insights
+              {t("newsletter.tag")}
             </span>
-            <h3 className="font-serif text-2xl text-primary mb-3">
-              Join the Collector's List
+            <h3 className="font-serif text-2xl text-primary mb-3 font-medium">
+              {t("newsletter.title")}
             </h3>
             <p className="text-stone-500 font-light text-xs leading-relaxed mb-6">
-              Subscribe to receive exclusive catalogues, giga-project highlights, and seasonal private collections directly from our Jeddah joinery workshop.
+              {t("newsletter.desc")}
             </p>
 
             <form onSubmit={handleSubmit} className="w-full space-y-3">
@@ -93,7 +93,7 @@ export default function NewsletterPopup() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email address"
+                placeholder={t("newsletter.placeholder")}
                 className="w-full px-4 py-3 border border-stone-200 text-xs focus:outline-none focus:border-accent bg-white text-stone-900 text-center"
               />
               <button
@@ -101,16 +101,16 @@ export default function NewsletterPopup() {
                 disabled={isSubmitting}
                 className="btn-primary py-3 text-xs w-full cursor-pointer tracking-widest uppercase font-semibold"
               >
-                {isSubmitting ? "Subscribing..." : "Request Access"}
+                {isSubmitting ? t("newsletter.subscribing") : t("newsletter.btn")}
               </button>
             </form>
           </>
         ) : (
           <div className="py-6 space-y-3 animate-fade-in">
             <span className="text-3xl block">✓</span>
-            <h4 className="font-serif text-xl text-primary">Invitation Accepted</h4>
+            <h4 className="font-serif text-xl text-primary font-medium">{t("newsletter.success_title")}</h4>
             <p className="text-stone-500 font-light text-xs">
-              Thank you. You have been added to the KhashabSA private list.
+              {t("newsletter.success_desc")}
             </p>
           </div>
         )}

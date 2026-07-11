@@ -12,7 +12,7 @@ export default function AboutContent() {
       <section className="bg-sand-light py-20 lg:py-28 border-b border-stone-100">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 text-left">
           <span className="text-xs font-bold text-accent uppercase tracking-widest block mb-4">
-            {t("nav.about")}
+            {t("about.label")}
           </span>
           <h1 className="text-4xl lg:text-5xl font-serif text-primary leading-tight max-w-2xl font-medium">
             {t("about.title")}
@@ -60,43 +60,54 @@ export default function AboutContent() {
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
             
-            {/* Message/Mission */}
+            {/* Mission */}
             <div className="card-2d p-8 lg:p-10 bg-white">
               <span className="text-[10px] font-bold text-accent uppercase tracking-widest block mb-4">
-                {t("contact.form_title").split(" ")[0]} {t("footer.navigation")}
+                {t("about.mission_label")}
               </span>
               <h3 className="text-xl lg:text-2xl font-serif text-primary mb-4 font-medium">
-                {t("about.val_2_title")}
+                {t("about.mission_title")}
               </h3>
               <p className="text-stone-550 font-light text-sm leading-relaxed">
-                {t("about.val_2_desc")}
+                {t("about.mission_desc")}
               </p>
             </div>
 
             {/* Vision */}
             <div className="card-2d p-8 lg:p-10 bg-white">
               <span className="text-[10px] font-bold text-accent uppercase tracking-widest block mb-4">
-                {t("health.label")}
+                {t("about.vision_label")}
               </span>
               <h3 className="text-xl lg:text-2xl font-serif text-primary mb-4 font-medium">
-                {t("health.intro_title")}
+                {t("about.vision_title")}
               </h3>
-              <p className="text-stone-550 font-light text-sm leading-relaxed mb-4">
-                {t("health.intro_desc_1")}
+              <p className="text-stone-550 font-light text-sm leading-relaxed">
+                {t("about.vision_desc")}
               </p>
             </div>
 
             {/* Goals */}
             <div className="card-2d p-8 lg:p-10 bg-white">
               <span className="text-[10px] font-bold text-accent uppercase tracking-widest block mb-4">
-                {t("about.standards_label")}
+                {t("about.goals_label")}
               </span>
               <h3 className="text-xl lg:text-2xl font-serif text-primary mb-4 font-medium">
-                {t("about.standards_title")}
+                {t("about.goals_title")}
               </h3>
-              <p className="text-stone-550 font-light text-sm leading-relaxed">
-                {t("about.standards_desc")}
-              </p>
+              <ul className="text-stone-550 font-light text-sm leading-relaxed space-y-2">
+                <li className="flex items-start gap-2">
+                  <span className="text-accent font-bold shrink-0">—</span>
+                  {t("about.goals_1")}
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-accent font-bold shrink-0">—</span>
+                  {t("about.goals_2")}
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-accent font-bold shrink-0">—</span>
+                  {t("about.goals_3")}
+                </li>
+              </ul>
             </div>
 
           </div>
@@ -111,27 +122,50 @@ export default function AboutContent() {
             {/* Why Us */}
             <div className="lg:col-span-6 space-y-6 text-left">
               <span className="text-xs font-bold text-accent uppercase tracking-widest block">
-                {t("about.val_1_title")}
+                {t("about.why_label")}
               </span>
               <h2 className="text-3xl font-serif text-primary font-medium">
-                {t("about.val_3_title")}
+                {t("about.why_title")}
               </h2>
-              <p className="text-stone-500 font-light text-sm leading-relaxed">
-                {t("about.val_3_desc")}
-              </p>
+              <div className="grid grid-cols-2 gap-6 pt-4">
+                <div>
+                  <h4 className="font-serif text-lg text-primary mb-2 font-medium">{t("about.why_1_title")}</h4>
+                  <p className="text-stone-500 font-light text-xs leading-relaxed">{t("about.why_1_desc")}</p>
+                </div>
+                <div>
+                  <h4 className="font-serif text-lg text-primary mb-2 font-medium">{t("about.why_2_title")}</h4>
+                  <p className="text-stone-500 font-light text-xs leading-relaxed">{t("about.why_2_desc")}</p>
+                </div>
+                <div>
+                  <h4 className="font-serif text-lg text-primary mb-2 font-medium">{t("about.why_3_title")}</h4>
+                  <p className="text-stone-500 font-light text-xs leading-relaxed">{t("about.why_3_desc")}</p>
+                </div>
+                <div>
+                  <h4 className="font-serif text-lg text-primary mb-2 font-medium">{t("about.why_4_title")}</h4>
+                  <p className="text-stone-500 font-light text-xs leading-relaxed">{t("about.why_4_desc")}</p>
+                </div>
+              </div>
             </div>
 
             {/* Certifications */}
             <div className="lg:col-span-6 space-y-6 bg-stone-50 p-8 border border-stone-200 text-left">
               <span className="text-[10px] font-bold text-accent uppercase tracking-widest block">
-                {t("about.standards_label")}
+                {t("about.cert_label")}
               </span>
               <h3 className="text-2xl font-serif text-primary font-medium">
-                {t("about.standards_title")}
+                {t("about.cert_title")}
               </h3>
               <p className="text-stone-600 font-light text-sm leading-relaxed">
-                {t("about.standards_desc")}
+                {t("about.cert_desc")}
               </p>
+              <div className="flex flex-wrap gap-4 pt-2">
+                <span className="border border-stone-300 text-stone-600 font-semibold text-[10px] tracking-wider uppercase px-3 py-2 bg-white">
+                  ISO 9001:2015
+                </span>
+                <span className="border border-stone-300 text-stone-600 font-semibold text-[10px] tracking-wider uppercase px-3 py-2 bg-white">
+                  GMP {t("about.standards_label")}
+                </span>
+              </div>
             </div>
 
           </div>
@@ -142,13 +176,13 @@ export default function AboutContent() {
       <section className="bg-sand-light py-24 text-center border-t border-stone-100">
         <div className="max-w-xl mx-auto px-6">
           <h2 className="text-3xl font-serif text-primary mb-6 font-medium">
-            {t("trust.title")}
+            {t("about.cta_title")}
           </h2>
           <p className="text-stone-500 font-light text-sm leading-relaxed mb-8">
-            {t("trust.desc")}
+            {t("about.cta_desc")}
           </p>
           <Link href="/contact" className="btn-primary">
-            {t("nav.contact")}
+            {t("about.cta_btn")}
           </Link>
         </div>
       </section>
