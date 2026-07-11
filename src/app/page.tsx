@@ -1,35 +1,12 @@
 import Link from "next/link";
 import ImageGallery from "@/components/ImageGallery";
+import HeroSlider from "@/components/HeroSlider";
 
 export default function Home() {
   return (
     <div className="bg-white">
       {/* Hero Section */}
-      <section className="relative bg-white py-24 lg:py-36 border-b border-stone-100">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="max-w-3xl">
-            <span className="text-xs font-bold text-accent uppercase tracking-widest block mb-4">
-              Premium Wood Manufacturing
-            </span>
-            <h1 className="text-4xl sm:text-6xl font-serif text-primary leading-[1.1] mb-6">
-              Quality that lasts,<br />
-              <span className="italic font-light text-stone-500">Elegance that impresses.</span>
-            </h1>
-            <p className="text-stone-600 font-light text-base sm:text-lg leading-relaxed mb-10 max-w-xl">
-              From bespoke architectural doors to MOH-compliant clinical wall systems, 
-              KhashabSA combines traditional carpentry mastery with state-of-the-art CNC engineering.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/contact" className="btn-primary">
-                Request Specifications
-              </Link>
-              <Link href="/services" className="btn-secondary">
-                View Our Services
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      <HeroSlider />
 
       {/* Story Summary Section */}
       <section className="bg-sand-light py-20 lg:py-28 border-b border-stone-100">
