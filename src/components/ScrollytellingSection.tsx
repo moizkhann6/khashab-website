@@ -50,7 +50,7 @@ export default function ScrollytellingSection() {
   }
 
   return (
-    <div ref={containerRef} className="w-full max-w-full overflow-hidden grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-start relative py-6 lg:py-12">
+    <div ref={containerRef} className="w-full max-w-full overflow-hidden lg:overflow-visible grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-start relative py-6 lg:py-12">
       
       {/* LEFT PANEL: Sticky Image Viewer (Strictly 2D, visible on desktop only) */}
       <div className="hidden lg:block lg:col-span-6 lg:sticky lg:top-28 z-20 w-full aspect-square overflow-hidden bg-stone-100 border border-stone-200">
