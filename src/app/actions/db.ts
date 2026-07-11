@@ -99,7 +99,7 @@ export async function initDbAction() {
     await sql`
       CREATE TABLE IF NOT EXISTS khashab_logo (
         id SERIAL PRIMARY KEY,
-        logo_text VARCHAR(255) NOT NULL
+        logo_text TEXT NOT NULL
       );
     `;
 
@@ -110,7 +110,7 @@ export async function initDbAction() {
         category VARCHAR(255) NOT NULL,
         location VARCHAR(255) NOT NULL,
         description TEXT NOT NULL,
-        image VARCHAR(255) NOT NULL,
+        image TEXT NOT NULL,
         specs TEXT[] NOT NULL
       );
     `;
@@ -126,7 +126,7 @@ export async function initDbAction() {
     await sql`
       CREATE TABLE IF NOT EXISTS khashab_slides (
         id INT PRIMARY KEY,
-        image VARCHAR(255) NOT NULL,
+        image TEXT NOT NULL,
         category VARCHAR(255) NOT NULL,
         title VARCHAR(255) NOT NULL,
         subtitle TEXT NOT NULL,
@@ -149,6 +149,11 @@ export async function initDbAction() {
         read BOOLEAN DEFAULT FALSE
       );
     `;
+
+    // Alter column types to TEXT if the tables were previously created with VARCHAR(255) limits
+    await sql`ALTER TABLE khashab_logo ALTER COLUMN logo_text TYPE TEXT;`;
+    await sql`ALTER TABLE khashab_projects ALTER COLUMN image TYPE TEXT;`;
+    await sql`ALTER TABLE khashab_slides ALTER COLUMN image TYPE TEXT;`;
 
     // B. Seed Default Logo
     const logoCheck = await sql`SELECT * FROM khashab_logo LIMIT 1`;
