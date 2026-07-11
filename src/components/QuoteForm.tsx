@@ -164,9 +164,12 @@ export default function QuoteForm() {
                 <option value="Windows">Premium Windows</option>
                 <option value="Kitchens">Bespoke Kitchens</option>
                 <option value="Wardrobes">Custom Wardrobes</option>
+                <option value="Closets">Luxury Closets</option>
+                <option value="Bedrooms">Bespoke Bedrooms</option>
                 <option value="Office Furniture">B2B Office Furniture</option>
+                <option value="Furniture">Custom Furniture</option>
                 <option value="Healthcare specialized">Healthcare Specialized Woodwork</option>
-                <option value="Bespoke custom">Other Bespoke Carpentry</option>
+                <option value="Other fitting">Other Fit-Out Service</option>
               </select>
             </div>
 

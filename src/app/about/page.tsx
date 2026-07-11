@@ -68,17 +68,16 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             
-            {/* Mission */}
+            {/* Message/Mission */}
             <div className="card-2d p-8 lg:p-10 bg-white">
               <span className="text-[10px] font-bold text-accent uppercase tracking-widest block mb-4">
-                Our Mission
+                Our Mission & Message
               </span>
               <h3 className="text-xl lg:text-2xl font-serif text-primary mb-4">
-                Precision & Quality
+                Vision Fulfillment
               </h3>
               <p className="text-stone-500 font-light text-sm leading-relaxed">
-                To deliver world-class wood engineering and custom woodwork solutions that surpass client 
-                expectations, supporting Saudi contractors with reliable lead times and impeccable build quality.
+                We are committed to achieving the customer's vision by shaping premium wood products to desired specifications in record time and at highly competitive prices.
               </p>
             </div>
 
@@ -88,10 +87,10 @@ export default function AboutPage() {
                 Our Vision
               </span>
               <h3 className="text-xl lg:text-2xl font-serif text-primary mb-4">
-                Regional Leadership
+                The First Option
               </h3>
-              <p className="text-stone-500 font-light text-sm leading-relaxed">
-                To become the premier B2B manufacturer of custom architectural timber products and specialized medical-grade wood systems in the Gulf region, driving innovation through technology.
+              <p className="text-stone-500 font-light text-sm leading-relaxed mb-4">
+                To be the first option for wood products in Saudi Arabia, and the leading specialist option for wood products in healthcare facilities throughout the Kingdom.
               </p>
             </div>
 
@@ -106,15 +105,15 @@ export default function AboutPage() {
               <ul className="text-stone-500 font-light text-sm leading-relaxed space-y-2">
                 <li className="flex items-start">
                   <span className="text-accent mr-2 font-bold">&#8212;</span>
-                  Maintain 100% Saudi MOH compliance.
+                  Deliver unique wood products and icons.
                 </li>
                 <li className="flex items-start">
                   <span className="text-accent mr-2 font-bold">&#8212;</span>
-                  Increase Saudization in engineering roles.
+                  Expand market presence within Saudi Arabia.
                 </li>
                 <li className="flex items-start">
                   <span className="text-accent mr-2 font-bold">&#8212;</span>
-                  Promote sustainable wood sourcing.
+                  Cultivate client trust and long-term satisfaction.
                 </li>
               </ul>
             </div>
@@ -123,14 +122,81 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Why Us & Certifications */}
+      <section className="py-24 lg:py-32 bg-white">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+            
+            {/* Why Us */}
+            <div className="lg:col-span-6 space-y-6">
+              <span className="text-xs font-bold text-accent uppercase tracking-widest block">
+                Why KhashabSA
+              </span>
+              <h2 className="text-3xl font-serif text-primary">
+                Differentiating Strengths
+              </h2>
+              <div className="grid grid-cols-2 gap-6 pt-4">
+                <div>
+                  <h4 className="font-serif text-lg text-primary mb-2">Innovation & Creativity</h4>
+                  <p className="text-stone-500 font-light text-xs leading-relaxed">
+                    Continuously designing unique wood icons that bring joy and beauty to spaces.
+                  </p>
+                </div>
+                <div>
+                  <h4 className="font-serif text-lg text-primary mb-2">Commitment to Quality</h4>
+                  <p className="text-stone-500 font-light text-xs leading-relaxed">
+                    Selecting prime lumber and processing under rigorous manufacturing audits.
+                  </p>
+                </div>
+                <div>
+                  <h4 className="font-serif text-lg text-primary mb-2">Record Lead Times</h4>
+                  <p className="text-stone-500 font-light text-xs leading-relaxed">
+                    Precision high-capacity CNC plants ensure swift engineering and shipping.
+                  </p>
+                </div>
+                <div>
+                  <h4 className="font-serif text-lg text-primary mb-2">After-Sales Service</h4>
+                  <p className="text-stone-500 font-light text-xs leading-relaxed">
+                    Comprehensive maintenance support and project callbacks to build customer trust.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Certifications */}
+            <div className="lg:col-span-6 space-y-6 bg-stone-50 p-8 border border-stone-200">
+              <span className="text-[10px] font-bold text-accent uppercase tracking-widest block">
+                Quality Credentials
+              </span>
+              <h3 className="text-2xl font-serif text-primary">
+                ISO 9001 & GMP Standards
+              </h3>
+              <p className="text-stone-600 font-light text-sm leading-relaxed">
+                All wood components manufactured at our Riyadh facility are audited under international quality protocols. 
+                KhashabSA is proud to hold **ISO 9001:2015 Quality Management Systems Certification** and strictly adheres to **Good Manufacturing Practice (GMP)** guidelines to ensure cleanroom and commercial wood safety.
+              </p>
+              <div className="flex gap-4 pt-2">
+                <span className="border border-stone-300 text-stone-600 font-semibold text-[10px] tracking-wider uppercase px-3 py-2 bg-white">
+                  ISO 9001:2015 Certified
+                </span>
+                <span className="border border-stone-300 text-stone-600 font-semibold text-[10px] tracking-wider uppercase px-3 py-2 bg-white">
+                  GMP Standards Compliant
+                </span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
       {/* Call to Action */}
-      <section className="bg-white py-24 text-center">
+      <section className="bg-sand-light py-24 text-center border-t border-stone-100">
         <div className="max-w-xl mx-auto px-6">
           <h2 className="text-3xl font-serif text-primary mb-6">
             Partner With Us
           </h2>
           <p className="text-stone-500 font-light text-sm leading-relaxed mb-8">
-            Let's discuss how KhashabSA can engineer custom doors, panels, or furniture solutions for your next project.
+            Experience the unique woodworking capability that brings beauty, joy, and compliance to your spaces.
           </p>
           <Link href="/contact" className="btn-primary">
             Get in touch

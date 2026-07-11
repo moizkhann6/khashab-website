@@ -151,14 +151,13 @@ export default function HealthcarePage() {
       <section className="bg-white py-24">
         <div className="max-w-3xl mx-auto px-6 text-center">
           <span className="bg-accent/10 text-accent font-semibold text-[10px] px-3 py-1.5 uppercase tracking-widest mb-6 inline-block">
-            MOH / Civil Defense Approved
+            MOH / ISO 9001 / GMP Compliant
           </span>
           <h2 className="text-3xl font-serif text-primary mb-6">
             Tendering & Engineering Submittals
           </h2>
           <p className="text-stone-500 font-light text-sm leading-relaxed mb-8 max-w-xl mx-auto">
-            We provide full engineering submittal packages including independent laboratory test fire ratings, 
-            acoustic test results, and antimicrobial certificates to support your project's approval process.
+            Our wood products are engineered in compliance with Saudi Ministry of Health standards: moisture and bacteria resistant, fire resistant, and easy to sterilize and clean. All fabrication follows **ISO 9001:2015** quality protocols and **GMP** guidelines to guarantee clinical safety.
           </p>
           <Link href="/contact" className="btn-primary">
             Request Spec Submittal Pack

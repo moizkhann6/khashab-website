@@ -77,11 +77,11 @@ export default function ContactPage() {
                 <div className="space-y-3 text-sm font-light text-stone-600">
                   <p>
                     <span className="block text-xs font-semibold text-stone-400 uppercase">Phone</span>
-                    <a href="tel:+966114987788" className="hover:text-accent transition-colors">+966 11 498 7788</a>
+                    <a href="tel:+966560603222" className="hover:text-accent transition-colors">+966 56 060 3222</a>
                   </p>
                   <p>
                     <span className="block text-xs font-semibold text-stone-400 uppercase">Email</span>
-                    <a href="mailto:info@khashab.sa" className="hover:text-accent transition-colors">info@khashab.sa</a>
+                    <a href="mailto:info@khashab.net" className="hover:text-accent transition-colors">info@khashab.net</a>
                   </p>
                 </div>
               </div>

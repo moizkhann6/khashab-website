@@ -15,8 +15,8 @@ export default function Footer() {
               Khashab<span className="text-accent font-light">SA</span>
             </span>
             <p className="mt-6 text-sm text-stone-400 leading-relaxed font-light">
-              Premium wood manufacturing and custom bespoke carpentry based in Saudi Arabia. 
-              Delivering high-end solutions for healthcare, commercial, and residential sectors since 2015.
+              We design and manufacture unique, high-end wood icons that bring beauty and joy to spaces. 
+              Serving corporate, residential, and clinical healthcare sectors in Saudi Arabia since 2015.
             </p>
           </div>
 
@@ -61,8 +61,8 @@ export default function Footer() {
               </li>
               <li>
                 <span className="block text-white font-medium">Contact Details</span>
-                Phone: +966 11 498 7788<br />
-                Email: info@khashab.sa
+                Phone: +966 56 060 3222<br />
+                Email: info@khashab.net
               </li>
             </ul>
           </div>
@@ -77,9 +77,7 @@ export default function Footer() {
                 MOH Standards Compliant
               </span>
               <p className="text-xs text-stone-400 font-light leading-relaxed">
-                All healthcare-specific doors, cabinets, and clinical paneling are manufactured in 
-                compliance with Saudi Ministry of Health specifications, featuring anti-microbial surfaces, 
-                moisture resistance, and certified fire ratings.
+                All healthcare-specific wood products match Saudi Ministry of Health standards: moisture and bacteria resistant, fire resistant, and easy to sterilize and clean.
               </p>
             </div>
           </div>
@@ -94,6 +92,7 @@ export default function Footer() {
             &copy; {currentYear} KhashabSA. All rights reserved.
           </p>
           <div className="mt-4 md:mt-0 flex space-x-6">
+            <a href="https://www.khashab.net" className="hover:text-white transition-colors">www.khashab.net</a>
             <span>CR No: 1010484920</span>
             <span>Made in Saudi Arabia</span>
           </div>
