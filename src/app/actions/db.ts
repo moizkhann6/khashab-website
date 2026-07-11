@@ -238,7 +238,9 @@ export async function getLogoAction() {
 
 export async function updateLogoAction(logoText: string) {
   try {
-    await sql`UPDATE khashab_logo SET logo_text = ${logoText} WHERE id = 1`;
+    // Delete any old logo entries, and insert the new one, ensuring there is exactly 1 row!
+    await sql`DELETE FROM khashab_logo`;
+    await sql`INSERT INTO khashab_logo (logo_text) VALUES (${logoText})`;
     return { success: true };
   } catch (error) {
     console.error("Error updating logo:", error);
