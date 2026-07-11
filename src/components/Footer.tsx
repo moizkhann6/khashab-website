@@ -72,7 +72,7 @@ export default function Footer() {
             <ul className="space-y-4 text-sm font-light text-stone-400">
               <li>
                 <span className="block text-white font-medium">KhashabSA Factory</span>
-                Second Industrial City, Riyadh,<br />Kingdom of Saudi Arabia
+                Second Industrial City, Jeddah,<br />Kingdom of Saudi Arabia
               </li>
               <li>
                 <span className="block text-white font-medium">Contact Details</span>

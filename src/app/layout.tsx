@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     template: "%s | KhashabSA"
   },
   description: "KhashabSA is Saudi Arabia's premium wood manufacturer (est. 2015). We engineer bespoke doors, luxury windows, kitchens, premium wardrobes, B2B office furniture, and MoH-compliant healthcare wood solutions.",
-  keywords: ["wood manufacturing saudi arabia", "premium carpentry riyadh", "bespoke doors saudi", "commercial furniture saudi", "healthcare woodwork moh compliant"],
+  keywords: ["wood manufacturing saudi arabia", "premium carpentry jeddah", "bespoke doors saudi", "commercial furniture saudi", "healthcare woodwork moh compliant"],
 };
 
 export default function RootLayout({

@@ -84,7 +84,7 @@ export default function NewsletterPopup() {
               Join the Collector's List
             </h3>
             <p className="text-stone-500 font-light text-xs leading-relaxed mb-6">
-              Subscribe to receive exclusive catalogues, giga-project highlights, and seasonal private collections directly from our Riyadh joinery workshop.
+              Subscribe to receive exclusive catalogues, giga-project highlights, and seasonal private collections directly from our Jeddah joinery workshop.
             </p>
 
             <form onSubmit={handleSubmit} className="w-full space-y-3">

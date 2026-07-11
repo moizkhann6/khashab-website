@@ -9,7 +9,7 @@ const defaultProjects: Omit<Project, "id">[] = [
   {
     title: "King Faisal Specialist Hospital",
     category: "healthcare",
-    location: "Riyadh, KSA",
+    location: "Jeddah, KSA",
     description: "Supply and installation of 220+ solid wood clinical doors with lead lining for radiology, antimicrobial wood paneling, and pharmacy cabinets matching strict MoH standards.",
     image: "/images/healthcare.jpg",
     specs: ["MOH Compliant", "Anti-microbial", "Fire-Rated 90min", "Lead-Lined"]
@@ -17,7 +17,7 @@ const defaultProjects: Omit<Project, "id">[] = [
   {
     title: "ROSHN Sedra Community",
     category: "residential",
-    location: "Riyadh, KSA",
+    location: "Jeddah, KSA",
     description: "Custom supply of luxury double-swing walnut entrance pivot doors and flush veneer interior bedroom doors for 45 luxury villas.",
     image: "/images/residential.jpg",
     specs: ["Prime Walnut", "Pivot Hinge", "Hidden Frames", "Satin Finish"]
@@ -47,12 +47,12 @@ const defaultProjects: Omit<Project, "id">[] = [
     specs: ["ICU Compliant", "Sterilization Easy", "Corridor Panels", "GMP Grade"]
   },
   {
-    title: "Riyadh Financial District Office",
+    title: "Jeddah Financial District Office",
     category: "commercial",
-    location: "KAFD, Riyadh",
+    location: "Jeddah, KSA",
     description: "High-volume custom fire-rated fire corridor doors, acoustic wall claddings, and flush office entry cabinets.",
     image: "/images/commercial.jpg",
-    specs: ["KAFD Spec", "Acoustic Walls", "Fire Rated 60min"]
+    specs: ["Jeddah Spec", "Acoustic Walls", "Fire Rated 60min"]
   }
 ];
 
@@ -133,7 +133,7 @@ const defaultJourney: JourneyStep[] = [
     id: 2,
     title: "02. Shop Drawings & CAD",
     subtitle: "Micron-Level Engineering Precision",
-    description: "Our Riyadh engineering department translates architectural sketches and tender specifications into detailed CAD shop drawings. We pre-plan internal structural reinforcement, cable pathways, and joinery details before milling.",
+    description: "Our Jeddah engineering department translates architectural sketches and tender specifications into detailed CAD shop drawings. We pre-plan internal structural reinforcement, cable pathways, and joinery details before milling.",
     image: "/images/commercial.jpg",
     accent: "Engineering Shop"
   },

@@ -21,7 +21,7 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
             <div className="lg:col-span-5">
               <span className="text-xs font-bold text-accent uppercase tracking-widest block mb-4">
-                Est. 2015 / Riyadh, KSA
+                Est. 2015 / Jeddah, KSA
               </span>
               <h2 className="text-3xl lg:text-4xl font-serif text-primary leading-tight">
                 Shaping Customer Visions Into Premium Wood Icons
@@ -29,12 +29,12 @@ export default function Home() {
             </div>
             <div className="lg:col-span-7 space-y-6">
               <p className="text-stone-600 font-light text-base leading-relaxed">
-                Founded in Riyadh in 2015, KhashabSA is committed to achieving the customer's vision by shaping products 
+                Founded in Jeddah in 2015, KhashabSA is committed to achieving the customer's vision by shaping products 
                 to desired specifications in record time and at highly competitive prices. We design and manufacture 
                 unique, high-end wood icons that bring beauty and joy to spaces.
               </p>
               <p className="text-stone-600 font-light text-base leading-relaxed">
-                Operating from Riyadh's Second Industrial City, our ISO 9001:2015 certified plant blends advanced CNC precision with artisanal carpentry, serving as the first choice for architectural and clinical woodwork in Saudi Arabia.
+                Operating from Jeddah's Second Industrial City, our ISO 9001:2015 certified plant blends advanced CNC precision with artisanal carpentry, serving as the first choice for architectural and clinical woodwork in Saudi Arabia.
               </p>
               <div className="pt-4">
                 <Link href="/about" className="text-sm font-semibold uppercase tracking-wider text-primary hover:text-accent transition-colors duration-200 link-underline">
@@ -103,7 +103,7 @@ export default function Home() {
               The Art of Bespoke Carpentry
             </h2>
             <p className="text-stone-500 font-light text-sm leading-relaxed mt-4">
-              Scroll down to witness how our Riyadh plant translates raw sustainable lumber into highly engineered, unique wood icons.
+              Scroll down to witness how our Jeddah plant translates raw sustainable lumber into highly engineered, unique wood icons.
             </p>
           </div>
 
@@ -204,7 +204,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 lg:px-12 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8">
           <div>
             <h3 className="font-serif text-2xl mb-2 text-white">Have an active tender or custom design inquiry?</h3>
-            <p className="text-stone-400 font-light text-sm">Our engineers in Riyadh will estimate prices and project lead times within 48 hours.</p>
+            <p className="text-stone-400 font-light text-sm">Our engineers in Jeddah will estimate prices and project lead times within 48 hours.</p>
           </div>
           <Link href="/contact" className="bg-white text-stone-900 hover:bg-stone-100 transition-colors py-4 px-8 text-xs uppercase tracking-widest font-semibold shrink-0">
             Submit Specifications &rarr;

@@ -4,7 +4,7 @@ import ContactPartners from "@/components/ContactPartners";
 
 export const metadata: Metadata = {
   title: "Contact & Partners",
-  description: "Get in touch with KhashabSA's Riyadh engineering office, request a B2B woodwork specification quote, or view our local Saudi development partners.",
+  description: "Get in touch with KhashabSA's Jeddah engineering office, request a B2B woodwork specification quote, or view our local Saudi development partners.",
 };
 
 export default function ContactPage() {
@@ -31,14 +31,14 @@ export default function ContactPage() {
             <div className="lg:col-span-5 space-y-12">
               <div>
                 <span className="text-[10px] font-bold text-accent uppercase tracking-widest block mb-3">
-                  Riyadh Headquarters & Factory
+                  Jeddah Headquarters & Factory
                 </span>
                 <h3 className="font-serif text-2xl text-primary mb-4">
                   KhashabSA Factory Complex
                 </h3>
                 <p className="text-stone-500 font-light text-sm leading-relaxed mb-4">
                   Second Industrial City, Phase 3<br />
-                  Riyadh, Kingdom of Saudi Arabia
+                  Jeddah, Kingdom of Saudi Arabia
                 </p>
                 <div className="border-t border-stone-100 pt-4 flex flex-col space-y-2 text-xs font-light text-stone-500">
                   <span><strong className="text-primary font-medium">CR Registration:</strong> 1010484920</span>

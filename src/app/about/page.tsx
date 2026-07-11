@@ -32,7 +32,7 @@ export default function AboutPage() {
                   2015
                 </span>
                 <span className="text-xs uppercase font-bold text-stone-400 tracking-wider block mt-2">
-                  Company Founded in Riyadh
+                  Company Founded in Jeddah
                 </span>
               </div>
             </div>
@@ -43,13 +43,13 @@ export default function AboutPage() {
                 A Journey of Craftsmanship & Industrial Scaling
               </h2>
               <p className="text-stone-600 font-light text-base leading-relaxed">
-                KhashabSA began as a small boutique workshop in Riyadh, established by master wood craftsmen 
+                KhashabSA began as a small boutique workshop in Jeddah, established by master wood craftsmen 
                 who recognized the need for premium, architecturally precise woodwork in the local Saudi market. 
                 By combining traditional joinery skills with strict manufacturing tolerances, the company quickly 
                 earned a reputation for quality.
               </p>
               <p className="text-stone-600 font-light text-base leading-relaxed">
-                In 2019, we expanded operations by establishing our state-of-the-art facility in Riyadh's Second 
+                In 2019, we expanded operations by establishing our state-of-the-art facility in Jeddah's Second 
                 Industrial City. Equipping the plant with automated CNC machinery allowed us to scale from bespoke 
                 single-residence fittings to large-scale B2B commercial, educational, and healthcare contract deliveries.
               </p>
@@ -172,7 +172,7 @@ export default function AboutPage() {
                 ISO 9001 & GMP Standards
               </h3>
               <p className="text-stone-600 font-light text-sm leading-relaxed">
-                All wood components manufactured at our Riyadh facility are audited under international quality protocols. 
+                All wood components manufactured at our Jeddah facility are audited under international quality protocols. 
                 KhashabSA is proud to hold **ISO 9001:2015 Quality Management Systems Certification** and strictly adheres to **Good Manufacturing Practice (GMP)** guidelines to ensure cleanroom and commercial wood safety.
               </p>
               <div className="flex gap-4 pt-2">

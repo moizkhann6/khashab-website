@@ -418,7 +418,7 @@ export default function AdminPage() {
                     <input
                       type="text"
                       required
-                      placeholder="e.g. Riyadh, KSA"
+                      placeholder="e.g. Jeddah, KSA"
                       value={projForm.location}
                       onChange={(e) => setProjForm({ ...projForm, location: e.target.value })}
                       className="w-full px-4 py-2 border border-stone-200 text-sm focus:outline-none focus:border-accent bg-white text-stone-900"
