@@ -113,7 +113,7 @@ export default function Home() {
 
       {/* 5. Healthcare Specialty Parallax Section */}
       <section 
-        className="relative h-[550px] bg-fixed bg-cover bg-center flex items-center border-b border-stone-900" 
+        className="relative h-[550px] bg-scroll lg:bg-fixed bg-cover bg-center flex items-center border-b border-stone-900" 
         style={{ backgroundImage: `url('${healthcareBg}')` }}
       >
         {/* Parallax Overlay */}
