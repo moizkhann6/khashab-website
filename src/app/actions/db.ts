@@ -444,6 +444,7 @@ export async function updateHealthcareBgAction(url: string) {
 
 export async function getAboutBgAction(): Promise<string> {
   try {
+    await sql`ALTER TABLE khashab_logo ADD COLUMN IF NOT EXISTS about_bg TEXT DEFAULT '/images/residential.jpg'`;
     const { rows } = await sql`SELECT about_bg FROM khashab_logo LIMIT 1`;
     if (rows.length > 0 && rows[0].about_bg) return rows[0].about_bg;
     return "/images/residential.jpg";
@@ -455,6 +456,7 @@ export async function getAboutBgAction(): Promise<string> {
 
 export async function updateAboutBgAction(url: string) {
   try {
+    await sql`ALTER TABLE khashab_logo ADD COLUMN IF NOT EXISTS about_bg TEXT DEFAULT '/images/residential.jpg'`;
     const check = await sql`SELECT * FROM khashab_logo LIMIT 1`;
     if (check.rows.length > 0) {
       await sql`UPDATE khashab_logo SET about_bg = ${url}`;
@@ -470,6 +472,7 @@ export async function updateAboutBgAction(url: string) {
 
 export async function getServicesBgAction(): Promise<string> {
   try {
+    await sql`ALTER TABLE khashab_logo ADD COLUMN IF NOT EXISTS services_bg TEXT DEFAULT '/images/commercial.jpg'`;
     const { rows } = await sql`SELECT services_bg FROM khashab_logo LIMIT 1`;
     if (rows.length > 0 && rows[0].services_bg) return rows[0].services_bg;
     return "/images/commercial.jpg";
@@ -481,6 +484,7 @@ export async function getServicesBgAction(): Promise<string> {
 
 export async function updateServicesBgAction(url: string) {
   try {
+    await sql`ALTER TABLE khashab_logo ADD COLUMN IF NOT EXISTS services_bg TEXT DEFAULT '/images/commercial.jpg'`;
     const check = await sql`SELECT * FROM khashab_logo LIMIT 1`;
     if (check.rows.length > 0) {
       await sql`UPDATE khashab_logo SET services_bg = ${url}`;
@@ -496,6 +500,7 @@ export async function updateServicesBgAction(url: string) {
 
 export async function getHealthcarePageBgAction(): Promise<string> {
   try {
+    await sql`ALTER TABLE khashab_logo ADD COLUMN IF NOT EXISTS healthcare_page_bg TEXT DEFAULT '/images/healthcare.jpg'`;
     const { rows } = await sql`SELECT healthcare_page_bg FROM khashab_logo LIMIT 1`;
     if (rows.length > 0 && rows[0].healthcare_page_bg) return rows[0].healthcare_page_bg;
     return "/images/healthcare.jpg";
@@ -507,6 +512,7 @@ export async function getHealthcarePageBgAction(): Promise<string> {
 
 export async function updateHealthcarePageBgAction(url: string) {
   try {
+    await sql`ALTER TABLE khashab_logo ADD COLUMN IF NOT EXISTS healthcare_page_bg TEXT DEFAULT '/images/healthcare.jpg'`;
     const check = await sql`SELECT * FROM khashab_logo LIMIT 1`;
     if (check.rows.length > 0) {
       await sql`UPDATE khashab_logo SET healthcare_page_bg = ${url}`;
@@ -522,6 +528,7 @@ export async function updateHealthcarePageBgAction(url: string) {
 
 export async function getContactBgAction(): Promise<string> {
   try {
+    await sql`ALTER TABLE khashab_logo ADD COLUMN IF NOT EXISTS contact_bg TEXT DEFAULT '/images/residential.jpg'`;
     const { rows } = await sql`SELECT contact_bg FROM khashab_logo LIMIT 1`;
     if (rows.length > 0 && rows[0].contact_bg) return rows[0].contact_bg;
     return "/images/residential.jpg";
@@ -533,6 +540,7 @@ export async function getContactBgAction(): Promise<string> {
 
 export async function updateContactBgAction(url: string) {
   try {
+    await sql`ALTER TABLE khashab_logo ADD COLUMN IF NOT EXISTS contact_bg TEXT DEFAULT '/images/residential.jpg'`;
     const check = await sql`SELECT * FROM khashab_logo LIMIT 1`;
     if (check.rows.length > 0) {
       await sql`UPDATE khashab_logo SET contact_bg = ${url}`;
