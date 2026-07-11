@@ -2,9 +2,11 @@
 
 import { useState } from "react";
 import { useDb } from "@/context/DbContext";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function QuoteForm() {
   const { addInquiry } = useDb();
+  const { t, isRtl } = useLanguage();
   const [formData, setFormData] = useState({
     name: "",
     company: "",
@@ -22,7 +24,7 @@ export default function QuoteForm() {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Save in local storage CMS
+    // Save in database inquiries log
     addInquiry({
       name: formData.name,
       company: formData.company,
@@ -56,8 +58,10 @@ export default function QuoteForm() {
     });
   };
 
+  const selectBgPosition = isRtl ? "left 1rem center" : "right 1rem center";
+
   return (
-    <div className="border border-stone-200 p-8 lg:p-12 bg-white">
+    <div className="border border-stone-200 p-8 lg:p-12 bg-white text-left">
       {isSubmitted ? (
         <div className="text-center py-12">
           <svg
@@ -73,16 +77,15 @@ export default function QuoteForm() {
               d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
             />
           </svg>
-          <h3 className="font-serif text-2xl text-primary mb-2">Request Received</h3>
-          <p className="text-stone-500 font-light text-sm max-w-md mx-auto leading-relaxed">
-            Thank you for reaching out. A KhashabSA B2B project consultant will review your specifications 
-            and contact you within 24 business hours.
+          <h3 className="font-serif text-2xl text-primary mb-2 font-medium">{t("contact.success_title")}</h3>
+          <p className="text-stone-550 font-light text-sm max-w-md mx-auto leading-relaxed">
+            {t("contact.success_desc")}
           </p>
           <button
             onClick={() => setIsSubmitted(false)}
-            className="mt-8 btn-primary"
+            className="mt-8 btn-primary shrink-0"
           >
-            Submit Another Request
+            {t("contact.btn_another")}
           </button>
         </div>
       ) : (
@@ -91,7 +94,7 @@ export default function QuoteForm() {
             {/* Full Name */}
             <div>
               <label htmlFor="name" className="block text-xs font-semibold text-stone-700 uppercase tracking-wider mb-2">
-                Contact Name *
+                {t("contact.input_name")} *
               </label>
               <input
                 type="text"
@@ -108,7 +111,7 @@ export default function QuoteForm() {
             {/* Company Name */}
             <div>
               <label htmlFor="company" className="block text-xs font-semibold text-stone-700 uppercase tracking-wider mb-2">
-                Company / Organization *
+                {t("contact.input_company")} *
               </label>
               <input
                 type="text"
@@ -127,7 +130,7 @@ export default function QuoteForm() {
             {/* Email Address */}
             <div>
               <label htmlFor="email" className="block text-xs font-semibold text-stone-700 uppercase tracking-wider mb-2">
-                Work Email *
+                {t("contact.input_email")} *
               </label>
               <input
                 type="email"
@@ -144,7 +147,7 @@ export default function QuoteForm() {
             {/* Phone Number */}
             <div>
               <label htmlFor="phone" className="block text-xs font-semibold text-stone-700 uppercase tracking-wider mb-2">
-                Phone Number *
+                {t("contact.input_phone").split(" ")[0]} *
               </label>
               <input
                 type="tel"
@@ -163,7 +166,7 @@ export default function QuoteForm() {
             {/* Product Category */}
             <div>
               <label htmlFor="category" className="block text-xs font-semibold text-stone-700 uppercase tracking-wider mb-2">
-                Product Category *
+                {t("contact.input_category")} *
               </label>
               <select
                 id="category"
@@ -171,25 +174,30 @@ export default function QuoteForm() {
                 value={formData.category}
                 onChange={handleChange}
                 className="w-full px-4 py-3 border border-stone-200 rounded-none bg-white text-sm text-stone-900 focus:outline-none focus:border-accent transition-colors duration-200 appearance-none"
-                style={{ backgroundImage: `url("data:image/svg+xml;utf8,<svg fill='none' stroke='%238c6239' stroke-width='1.5' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'><path stroke-linecap='round' stroke-linejoin='round' d='M19.5 8.25l-7.5 7.5-7.5-7.5'></path></svg>")`, backgroundPosition: 'right 1rem center', backgroundSize: '1.25rem', backgroundRepeat: 'no-repeat' }}
+                style={{ 
+                  backgroundImage: `url("data:image/svg+xml;utf8,<svg fill='none' stroke='%238c6239' stroke-width='1.5' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'><path stroke-linecap='round' stroke-linejoin='round' d='M19.5 8.25l-7.5 7.5-7.5-7.5'></path></svg>")`, 
+                  backgroundPosition: selectBgPosition, 
+                  backgroundSize: '1.25rem', 
+                  backgroundRepeat: 'no-repeat' 
+                }}
               >
-                <option value="Doors">Bespoke Doors</option>
-                <option value="Windows">Premium Windows</option>
-                <option value="Kitchens">Bespoke Kitchens</option>
-                <option value="Wardrobes">Custom Wardrobes</option>
-                <option value="Closets">Luxury Closets</option>
-                <option value="Bedrooms">Bespoke Bedrooms</option>
-                <option value="Office Furniture">B2B Office Furniture</option>
-                <option value="Furniture">Custom Furniture</option>
-                <option value="Healthcare specialized">Healthcare Specialized Woodwork</option>
-                <option value="Other fitting">Other Fit-Out Service</option>
+                <option value="Doors">{t("Bespoke Doors")}</option>
+                <option value="Windows">{t("Premium Windows")}</option>
+                <option value="Kitchens">{t("Bespoke Kitchens")}</option>
+                <option value="Wardrobes">{t("Custom Wardrobes")}</option>
+                <option value="Closets">{t("Luxury Closets")}</option>
+                <option value="Bedrooms">{t("Bespoke Bedrooms")}</option>
+                <option value="Office Furniture">{t("Office Furniture")}</option>
+                <option value="Furniture">{t("Custom Furniture")}</option>
+                <option value="Healthcare specialized">{t("health.label")}</option>
+                <option value="Other fitting">{t("contact.cat_general")}</option>
               </select>
             </div>
 
             {/* Project Volume */}
             <div>
               <label htmlFor="volume" className="block text-xs font-semibold text-stone-700 uppercase tracking-wider mb-2">
-                Estimated Volume *
+                {t("contact.input_volume")} *
               </label>
               <select
                 id="volume"
@@ -197,12 +205,17 @@ export default function QuoteForm() {
                 value={formData.volume}
                 onChange={handleChange}
                 className="w-full px-4 py-3 border border-stone-200 rounded-none bg-white text-sm text-stone-900 focus:outline-none focus:border-accent transition-colors duration-200 appearance-none"
-                style={{ backgroundImage: `url("data:image/svg+xml;utf8,<svg fill='none' stroke='%238c6239' stroke-width='1.5' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'><path stroke-linecap='round' stroke-linejoin='round' d='M19.5 8.25l-7.5 7.5-7.5-7.5'></path></svg>")`, backgroundPosition: 'right 1rem center', backgroundSize: '1.25rem', backgroundRepeat: 'no-repeat' }}
+                style={{ 
+                  backgroundImage: `url("data:image/svg+xml;utf8,<svg fill='none' stroke='%238c6239' stroke-width='1.5' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'><path stroke-linecap='round' stroke-linejoin='round' d='M19.5 8.25l-7.5 7.5-7.5-7.5'></path></svg>")`, 
+                  backgroundPosition: selectBgPosition, 
+                  backgroundSize: '1.25rem', 
+                  backgroundRepeat: 'no-repeat' 
+                }}
               >
-                <option value="Single custom">Single Custom Project</option>
-                <option value="10-50 units">10 - 50 units (Small Batch)</option>
+                <option value="Single custom">{t("contact.vol_single")}</option>
+                <option value="10-50 units">{t("contact.vol_mid")}</option>
                 <option value="50-200 units">50 - 200 units (Medium Project)</option>
-                <option value="200+ units">200+ units (Large Commercial/Healthcare)</option>
+                <option value="200+ units">{t("contact.vol_large")}</option>
               </select>
             </div>
           </div>
@@ -210,7 +223,7 @@ export default function QuoteForm() {
           {/* Project Details */}
           <div>
             <label htmlFor="details" className="block text-xs font-semibold text-stone-700 uppercase tracking-wider mb-2">
-              Project Specifications & Requirements
+              {t("contact.input_details")}
             </label>
             <textarea
               id="details"
@@ -230,7 +243,7 @@ export default function QuoteForm() {
               disabled={isSubmitting}
               className="w-full btn-primary py-4 text-sm font-semibold tracking-widest"
             >
-              {isSubmitting ? "Processing..." : "Submit B2B Specification Request"}
+              {isSubmitting ? t("contact.submitting") : t("contact.btn_submit")}
             </button>
           </div>
         </form>

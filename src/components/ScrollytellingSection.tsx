@@ -3,9 +3,11 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useDb } from "@/context/DbContext";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function ScrollytellingSection() {
   const { journeySteps, isLoaded } = useDb();
+  const { t } = useLanguage();
   const [activeStep, setActiveStep] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -63,7 +65,7 @@ export default function ScrollytellingSection() {
           >
             <Image
               src={step.image}
-              alt={step.title}
+              alt={t(step.title)}
               fill
               className="object-cover"
               sizes="(max-width: 1024px) 100vw, 50vw"
@@ -71,14 +73,14 @@ export default function ScrollytellingSection() {
             {/* Dark overlay with active step indicators */}
             <div className="absolute inset-0 bg-stone-950/40 flex flex-col justify-between p-8 text-white">
               <span className="bg-accent text-white font-semibold text-[10px] tracking-widest uppercase px-3 py-1.5 self-start">
-                {step.accent}
+                {t(step.accent)}
               </span>
               <div>
                 <span className="text-[10px] font-bold text-accent uppercase tracking-widest block mb-1">
-                  Active Manufacturing Stage
+                  {t("journey.stage")}
                 </span>
                 <p className="font-serif text-lg text-white font-medium">
-                  {step.subtitle}
+                  {t(step.subtitle)}
                 </p>
               </div>
             </div>
@@ -106,7 +108,7 @@ export default function ScrollytellingSection() {
                   0{idx + 1}
                 </span>
                 <span className="text-[10px] font-bold tracking-widest text-stone-400 uppercase">
-                  Step {idx + 1} of {journeySteps.length}
+                  {t("journey.stage").split(" ")[0]} {idx + 1} {t("nav.home") === "الرئيسية" ? "من" : "of"} {journeySteps.length}
                 </span>
               </div>
 
@@ -114,26 +116,26 @@ export default function ScrollytellingSection() {
               <div className="relative w-full aspect-video overflow-hidden border border-stone-200 mb-6 block lg:hidden bg-stone-100 shrink-0">
                 <Image
                   src={step.image}
-                  alt={step.title}
+                  alt={t(step.title)}
                   fill
                   className="object-cover"
                   sizes="(max-width: 1024px) 100vw, 50vw"
                 />
                 {/* Accent label overlay for mobile */}
                 <div className="absolute top-4 left-4 bg-accent text-white font-semibold text-[9px] tracking-widest uppercase px-2.5 py-1">
-                  {step.accent}
+                  {t(step.accent)}
                 </div>
               </div>
 
               <div className="space-y-3">
                 <h3 className="font-serif text-2xl text-primary font-medium text-left">
-                  {step.title.includes(".") ? step.title.split(".")[1].trim() : step.title}
+                  {t(step.title).includes(".") ? t(step.title).split(".")[1].trim() : t(step.title)}
                 </h3>
                 <h4 className="text-xs font-semibold text-accent uppercase tracking-wider text-left">
-                  {step.subtitle}
+                  {t(step.subtitle)}
                 </h4>
                 <p className="text-stone-550 font-light text-sm leading-relaxed text-left">
-                  {step.description}
+                  {t(step.description)}
                 </p>
               </div>
             </div>
@@ -141,10 +143,10 @@ export default function ScrollytellingSection() {
             {/* Active Indicator Bar */}
             <div className="mt-8 pt-4 border-t border-stone-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <span className="text-[10px] font-bold uppercase tracking-wider text-stone-400 text-left">
-                Audited Standard
+                {t("journey.standard_label")}
               </span>
               <span className="text-[10px] font-semibold text-stone-600 bg-stone-100 px-2 py-1 uppercase tracking-wider font-sans self-start sm:self-auto text-left">
-                {idx === journeySteps.length - 1 ? "ISO 9001 & GMP" : "Standard Operating Procedure"}
+                {idx === journeySteps.length - 1 ? t("journey.iso") : t("journey.sop")}
               </span>
             </div>
           </div>

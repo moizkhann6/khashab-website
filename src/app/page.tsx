@@ -6,9 +6,11 @@ import ImageGallery from "@/components/ImageGallery";
 import HeroSlider from "@/components/HeroSlider";
 import ScrollytellingSection from "@/components/ScrollytellingSection";
 import { useDb } from "@/context/DbContext";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Home() {
   const { clients, categories, healthcareBg } = useDb();
+  const { t } = useLanguage();
 
   return (
     <div className="bg-white">
@@ -20,25 +22,23 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
             <div className="lg:col-span-5">
-              <span className="text-xs font-bold text-accent uppercase tracking-widest block mb-4">
-                Est. 2015 / Jeddah, KSA
+              <span className="text-xs font-bold text-accent uppercase tracking-widest block mb-4 text-left">
+                {t("brand.est")}
               </span>
-              <h2 className="text-3xl lg:text-4xl font-serif text-primary leading-tight">
-                Shaping Customer Visions Into Premium Wood Icons
+              <h2 className="text-3xl lg:text-4xl font-serif text-primary leading-tight text-left font-medium">
+                {t("brand.hero_title")}
               </h2>
             </div>
             <div className="lg:col-span-7 space-y-6">
-              <p className="text-stone-600 font-light text-base leading-relaxed">
-                Founded in Jeddah in 2015, KhashabSA is committed to achieving the customer's vision by shaping products 
-                to desired specifications in record time and at highly competitive prices. We design and manufacture 
-                unique, high-end wood icons that bring beauty and joy to spaces.
+              <p className="text-stone-600 font-light text-base leading-relaxed text-left">
+                {t("brand.desc_1")}
               </p>
-              <p className="text-stone-600 font-light text-base leading-relaxed">
-                Operating from Jeddah's Second Industrial City, our ISO 9001:2015 certified plant blends advanced CNC precision with artisanal carpentry, serving as the first choice for architectural and clinical woodwork in Saudi Arabia.
+              <p className="text-stone-600 font-light text-base leading-relaxed text-left">
+                {t("brand.desc_2")}
               </p>
-              <div className="pt-4">
+              <div className="pt-4 flex justify-start">
                 <Link href="/about" className="text-sm font-semibold uppercase tracking-wider text-primary hover:text-accent transition-colors duration-200 link-underline">
-                  Read Our Story & Differentiators &rarr;
+                  {t("brand.read_story")}
                 </Link>
               </div>
             </div>
@@ -49,15 +49,15 @@ export default function Home() {
       {/* 3. Products & Services Section (With Visual Grid) */}
       <section className="bg-white py-24 lg:py-32 border-b border-stone-100">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="max-w-2xl mb-16">
+          <div className="max-w-2xl mb-16 text-left">
             <span className="text-xs font-bold text-accent uppercase tracking-widest block mb-4">
-              Our Products
+              {t("services.label")}
             </span>
-            <h2 className="text-3xl lg:text-4xl font-serif text-primary">
-              Premium Wood Manufacturing
+            <h2 className="text-3xl lg:text-4xl font-serif text-primary font-medium">
+              {t("services.title")}
             </h2>
             <p className="text-stone-500 font-light text-sm mt-2">
-              From doors and windows to luxury bespoke closets, kitchens, and office fit-outs, we shape timber to your precise specifications.
+              {t("services.subtitle")}
             </p>
           </div>
 
@@ -76,14 +76,14 @@ export default function Home() {
                 <div className="p-6 flex-grow flex flex-col justify-between">
                   <div>
                     <h3 className="font-serif text-lg text-primary mb-2 group-hover:text-accent transition-colors text-left font-semibold">
-                      {service.title}
+                      {t(service.title)}
                     </h3>
                     <p className="text-stone-500 font-light text-xs leading-relaxed mb-4 text-left">
-                      {service.description}
+                      {t(service.description)}
                     </p>
                   </div>
                   <Link href={service.href} className="text-[10px] font-bold uppercase tracking-wider text-accent group-hover:text-primary transition-colors link-underline self-start">
-                    View Details &rarr;
+                    {t("services.view_details")}
                   </Link>
                 </div>
               </div>
@@ -97,13 +97,13 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <span className="text-xs font-bold text-accent uppercase tracking-widest block mb-4">
-              Manufacturing Journey
+              {t("journey.label")}
             </span>
-            <h2 className="text-3xl lg:text-4xl font-serif text-primary">
-              The Art of Bespoke Carpentry
+            <h2 className="text-3xl lg:text-4xl font-serif text-primary font-medium">
+              {t("journey.title")}
             </h2>
             <p className="text-stone-500 font-light text-sm leading-relaxed mt-4">
-              Scroll down to witness how our Jeddah plant translates raw sustainable lumber into highly engineered, unique wood icons.
+              {t("journey.desc")}
             </p>
           </div>
 
@@ -119,22 +119,22 @@ export default function Home() {
         {/* Parallax Overlay */}
         <div className="absolute inset-0 bg-black/60 z-0" />
         <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 w-full">
-          <div className="max-w-2xl bg-white p-8 lg:p-12 border border-stone-200">
+          <div className="max-w-2xl bg-white p-8 lg:p-12 border border-stone-200 text-left">
             <span className="text-xs font-bold text-accent uppercase tracking-widest block mb-4">
-              Healthcare Specialty
+              {t("health.label")}
             </span>
-            <h2 className="text-3xl font-serif text-primary leading-tight mb-4">
-              First Option for Wood Products in Saudi Healthcare Facilities
+            <h2 className="text-3xl font-serif text-primary leading-tight mb-4 font-medium">
+              {t("health.title")}
             </h2>
             <p className="text-stone-600 font-light text-sm leading-relaxed mb-8">
-              We design and engineer specialized wood fittings matching strict Ministry of Health standards: moisture resistant, bacteria resistant, fire resistant, and easy to sterilize and clean.
+              {t("health.desc")}
             </p>
             <div className="flex gap-4">
               <Link href="/healthcare" className="btn-primary py-3 px-6 text-xs uppercase tracking-wider">
-                Explore Clinical Specs
+                {t("health.btn_specs")}
               </Link>
               <Link href="/contact" className="btn-secondary py-3 px-6 text-xs uppercase tracking-wider">
-                Request Healthcare RFQ
+                {t("health.btn_rfq")}
               </Link>
             </div>
           </div>
@@ -146,13 +146,13 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <span className="text-xs font-bold text-accent uppercase tracking-widest block mb-4">
-              Featured Portfolio
+              {t("portfolio.label")}
             </span>
-            <h2 className="text-3xl lg:text-4xl font-serif text-primary mb-4">
-              Our High-End Projects
+            <h2 className="text-3xl lg:text-4xl font-serif text-primary mb-4 font-medium">
+              {t("portfolio.title")}
             </h2>
             <p className="text-stone-500 font-light text-sm leading-relaxed">
-              Explore a curated selection of our healthcare, commercial, and residential installations completed across Saudi Arabia.
+              {t("portfolio.desc")}
             </p>
           </div>
 
@@ -165,13 +165,13 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="max-w-2xl mb-16 text-left">
             <span className="text-xs font-bold text-accent uppercase tracking-widest block mb-4">
-              Our Networks
+              {t("networks.label")}
             </span>
-            <h2 className="text-3xl font-serif text-primary">
-              Trusted B2B Collaborators
+            <h2 className="text-3xl font-serif text-primary font-medium">
+              {t("networks.title")}
             </h2>
             <p className="text-stone-500 font-light text-sm leading-relaxed mt-4">
-              We supply custom woodwork and certified doors to leading developers and public institutions in Saudi Arabia.
+              {t("networks.desc")}
             </p>
           </div>
 
@@ -201,13 +201,13 @@ export default function Home() {
 
       {/* 8. Trust Banner / RFQ Link */}
       <section className="bg-stone-900 text-white py-16">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 text-left">
           <div>
-            <h3 className="font-serif text-2xl mb-2 text-white">Have an active tender or custom design inquiry?</h3>
-            <p className="text-stone-400 font-light text-sm">Our engineers in Jeddah will estimate prices and project lead times within 48 hours.</p>
+            <h3 className="font-serif text-2xl mb-2 text-white font-medium">{t("trust.title")}</h3>
+            <p className="text-stone-400 font-light text-sm">{t("trust.desc")}</p>
           </div>
           <Link href="/contact" className="bg-white text-stone-900 hover:bg-stone-100 transition-colors py-4 px-8 text-xs uppercase tracking-widest font-semibold shrink-0">
-            Submit Specifications &rarr;
+            {t("trust.btn")}
           </Link>
         </div>
       </section>

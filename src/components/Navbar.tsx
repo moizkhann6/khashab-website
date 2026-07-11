@@ -4,18 +4,20 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useDb } from "@/context/DbContext";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const { logo } = useDb();
+  const { language, toggleLanguage, t } = useLanguage();
 
   const links = [
-    { href: "/", label: "Home" },
-    { href: "/about", label: "About Us" },
-    { href: "/services", label: "Services & Products" },
-    { href: "/healthcare", label: "Healthcare Solutions" },
-    { href: "/contact", label: "Contact & Partners" },
+    { href: "/", label: t("nav.home") },
+    { href: "/about", label: t("nav.about") },
+    { href: "/services", label: t("nav.services") },
+    { href: "/healthcare", label: t("nav.healthcare") },
+    { href: "/contact", label: t("nav.contact") },
   ];
 
   const isActive = (href: string) => {
@@ -48,21 +50,31 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8 lg:space-x-12">
-            {links.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`text-sm font-medium tracking-wide uppercase transition-colors duration-200 ${
-                  isActive(link.href)
-                    ? "text-accent border-b border-accent pb-1"
-                    : "text-stone-600 hover:text-primary link-underline pb-1"
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
+          <div className="hidden md:flex items-center gap-6 lg:gap-10">
+            <nav className="flex items-center gap-6 lg:gap-10">
+              {links.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`text-sm font-medium tracking-wide uppercase transition-colors duration-200 ${
+                    isActive(link.href)
+                      ? "text-accent border-b border-accent pb-1"
+                      : "text-stone-600 hover:text-primary link-underline pb-1"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
+
+            {/* Language Toggle Button */}
+            <button
+              onClick={toggleLanguage}
+              className="px-3 py-1.5 border border-stone-200 text-xs font-semibold tracking-widest uppercase hover:border-accent hover:text-accent transition-colors duration-200 cursor-pointer bg-stone-50 text-stone-600 rounded-none shrink-0"
+            >
+              {language === "en" ? "العربية" : "English"}
+            </button>
+          </div>
 
           {/* Mobile Menu Button */}
           <button
@@ -100,13 +112,26 @@ export default function Navbar() {
                 onClick={() => setIsOpen(false)}
                 className={`text-base font-medium tracking-wide uppercase py-2 border-b border-stone-50 ${
                   isActive(link.href)
-                    ? "text-accent font-semibold"
-                    : "text-stone-600 hover:text-primary"
+                    ? "text-accent font-semibold text-left"
+                    : "text-stone-600 hover:text-primary text-left"
                 }`}
               >
                 {link.label}
               </Link>
             ))}
+
+            {/* Mobile Language Toggle */}
+            <div className="pt-4 border-t border-stone-100 flex justify-start">
+              <button
+                onClick={() => {
+                  toggleLanguage();
+                  setIsOpen(false);
+                }}
+                className="px-4 py-2 border border-stone-200 text-xs font-semibold tracking-widest uppercase hover:border-accent hover:text-accent transition-colors duration-200 bg-stone-50 text-stone-600 rounded-none cursor-pointer"
+              >
+                {language === "en" ? "العربية" : "English"}
+              </button>
+            </div>
           </nav>
         </div>
       )}

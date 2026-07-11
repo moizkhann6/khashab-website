@@ -2,10 +2,12 @@
 
 import Link from "next/link";
 import { useDb } from "@/context/DbContext";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
   const { logo } = useDb();
+  const { t } = useLanguage();
 
   return (
     <footer className="bg-stone-900 text-stone-300 border-t border-stone-800">
@@ -29,9 +31,8 @@ export default function Footer() {
                 )}
               </span>
             )}
-            <p className="mt-6 text-sm text-stone-400 leading-relaxed font-light">
-              We design and manufacture unique, high-end wood icons that bring beauty and joy to spaces. 
-              Serving corporate, residential, and clinical healthcare sectors in Saudi Arabia since 2015.
+            <p className="mt-6 text-sm text-stone-400 leading-relaxed font-light text-left">
+              {t("brand.desc_1")}
             </p>
             {/* Social Media Links */}
             <div className="flex space-x-5 mt-6">
@@ -58,28 +59,28 @@ export default function Footer() {
 
           {/* Site Pages Links */}
           <div>
-            <h3 className="font-sans text-xs font-semibold tracking-wider text-white uppercase mb-6">
-              Navigation
+            <h3 className="font-sans text-xs font-semibold tracking-wider text-white uppercase mb-6 text-left">
+              {t("footer.navigation")}
             </h3>
-            <ul className="space-y-4">
+            <ul className="space-y-4 text-left">
               <li>
                 <Link href="/about" className="text-sm font-light hover:text-white transition-colors duration-200">
-                  Our Story & Mission
+                  {t("nav.about")}
                 </Link>
               </li>
               <li>
                 <Link href="/services" className="text-sm font-light hover:text-white transition-colors duration-200">
-                  Services & Custom Products
+                  {t("nav.services")}
                 </Link>
               </li>
               <li>
                 <Link href="/healthcare" className="text-sm font-light hover:text-white transition-colors duration-200">
-                  Healthcare Specialized Wood
+                  {t("nav.healthcare")}
                 </Link>
               </li>
               <li>
                 <Link href="/contact" className="text-sm font-light hover:text-white transition-colors duration-200">
-                  Contact & Location
+                  {t("nav.contact")}
                 </Link>
               </li>
             </ul>
@@ -87,17 +88,17 @@ export default function Footer() {
 
           {/* Contact Details */}
           <div>
-            <h3 className="font-sans text-xs font-semibold tracking-wider text-white uppercase mb-6">
-              Headquarters
+            <h3 className="font-sans text-xs font-semibold tracking-wider text-white uppercase mb-6 text-left">
+              {t("footer.hq")}
             </h3>
-            <ul className="space-y-4 text-sm font-light text-stone-400">
+            <ul className="space-y-4 text-sm font-light text-stone-400 text-left">
               <li>
-                <span className="block text-white font-medium">KhashabSA Factory</span>
-                Second Industrial City, Jeddah,<br />Kingdom of Saudi Arabia
+                <span className="block text-white font-medium">{t("footer.factory")}</span>
+                <span className="whitespace-pre-line">{t("footer.address")}</span>
               </li>
               <li>
-                <span className="block text-white font-medium">Contact Details</span>
-                Phone: +966 56 060 3222<br />
+                <span className="block text-white font-medium">{t("footer.contact")}</span>
+                {t("contact.input_phone")}: +966 56 060 3222<br />
                 Email: info@khashab.net
               </li>
             </ul>
@@ -105,15 +106,15 @@ export default function Footer() {
 
           {/* Trust Compliance Info */}
           <div>
-            <h3 className="font-sans text-xs font-semibold tracking-wider text-white uppercase mb-6">
-              Regulatory Standards
+            <h3 className="font-sans text-xs font-semibold tracking-wider text-white uppercase mb-6 text-left">
+              {t("about.standards_label")}
             </h3>
-            <div className="bg-stone-850 p-5 border border-stone-800 rounded-none">
+            <div className="bg-stone-850 p-5 border border-stone-800 rounded-none text-left">
               <span className="text-accent text-xs font-semibold uppercase tracking-wider block mb-2">
-                MOH Standards Compliant
+                {t("health.label")}
               </span>
               <p className="text-xs text-stone-400 font-light leading-relaxed">
-                All healthcare-specific wood products match Saudi Ministry of Health standards: moisture and bacteria resistant, fire resistant, and easy to sterilize and clean.
+                {t("health.desc")}
               </p>
             </div>
           </div>
@@ -123,15 +124,15 @@ export default function Footer() {
 
       {/* Lower Footer */}
       <div className="border-t border-stone-800 bg-stone-950 py-8">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 flex flex-col md:flex-row justify-between items-center text-xs text-stone-500 font-light">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 flex flex-col md:flex-row justify-between items-center text-xs text-stone-500 font-light gap-4">
           <p>
-            &copy; {currentYear} KhashabSA. All rights reserved.
+            &copy; {currentYear} KhashabSA. {t("footer.copy")}
           </p>
-          <div className="mt-4 md:mt-0 flex space-x-6">
+          <div className="flex flex-wrap justify-center md:justify-end gap-6">
             <Link href="/admin" className="hover:text-white transition-colors">Admin Dashboard</Link>
             <a href="https://www.khashab.net" className="hover:text-white transition-colors">www.khashab.net</a>
-            <span>CR No: 1010484920</span>
-            <span>Made in Saudi Arabia</span>
+            <span>{t("footer.cr")}: 1010484920</span>
+            <span>{t("footer.vat")}: 300482930200003</span>
           </div>
         </div>
       </div>

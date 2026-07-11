@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CustomCursor from "@/components/CustomCursor";
 import { DbProvider } from "@/context/DbContext";
+import { LanguageProvider } from "@/context/LanguageContext";
 import NewsletterPopup from "@/components/NewsletterPopup";
 
 const inter = Inter({
@@ -40,15 +41,16 @@ export default function RootLayout({
       className={`${inter.variable} ${cormorant.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-white text-stone-900">
-        <DbProvider>
-          <CustomCursor />
-          <NewsletterPopup />
-          <Navbar />
-          <main className="flex-grow">{children}</main>
-          <Footer />
-        </DbProvider>
+        <LanguageProvider>
+          <DbProvider>
+            <CustomCursor />
+            <NewsletterPopup />
+            <Navbar />
+            <main className="flex-grow">{children}</main>
+            <Footer />
+          </DbProvider>
+        </LanguageProvider>
       </body>
     </html>
   );
 }
-
