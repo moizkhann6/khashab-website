@@ -92,7 +92,7 @@ export default function ScrollytellingSection() {
           <div
             key={step.id}
             id={`step-${step.id}`}
-            className="scrolly-step border border-stone-200 p-6 sm:p-8 lg:p-12 bg-white transition-all duration-300 relative group flex flex-col justify-between min-h-[380px]"
+            className="scrolly-step border border-stone-200 p-6 sm:p-8 lg:p-12 bg-white transition-all duration-300 relative group flex flex-col justify-between min-h-[320px] overflow-hidden"
             style={{
               borderColor: idx === activeStep ? "#8c6239" : "#e7e5e4"
             }}
@@ -139,11 +139,11 @@ export default function ScrollytellingSection() {
             </div>
 
             {/* Active Indicator Bar */}
-            <div className="mt-8 pt-4 border-t border-stone-100 flex items-center justify-between">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-stone-400">
+            <div className="mt-8 pt-4 border-t border-stone-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-stone-400 text-left">
                 Audited Standard
               </span>
-              <span className="text-[10px] font-semibold text-stone-600 bg-stone-100 px-2 py-1 uppercase tracking-wider font-sans">
+              <span className="text-[10px] font-semibold text-stone-600 bg-stone-100 px-2 py-1 uppercase tracking-wider font-sans self-start sm:self-auto text-left">
                 {idx === journeySteps.length - 1 ? "ISO 9001 & GMP" : "Standard Operating Procedure"}
               </span>
             </div>
