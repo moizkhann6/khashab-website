@@ -31,16 +31,20 @@ export default function Navbar() {
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <Link href="/" className="group flex items-center space-x-2">
-            <span className="font-serif text-2xl tracking-widest text-primary uppercase font-medium">
-              {logo.toLowerCase().endsWith("sa") ? (
-                <>
-                  {logo.slice(0, -2)}
-                  <span className="text-accent font-light">{logo.slice(-2)}</span>
-                </>
-              ) : (
-                logo
-              )}
-            </span>
+            {logo.startsWith("http") || logo.startsWith("data:") ? (
+              <img src={logo} alt="KhashabSA Logo" className="h-10 max-w-[180px] object-contain" />
+            ) : (
+              <span className="font-serif text-2xl tracking-widest text-primary uppercase font-medium">
+                {logo.toLowerCase().endsWith("sa") ? (
+                  <>
+                    {logo.slice(0, -2)}
+                    <span className="text-accent font-light">{logo.slice(-2)}</span>
+                  </>
+                ) : (
+                  logo
+                )}
+              </span>
+            )}
           </Link>
 
           {/* Desktop Navigation */}

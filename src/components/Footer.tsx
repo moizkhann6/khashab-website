@@ -15,16 +15,20 @@ export default function Footer() {
           
           {/* Company Bio */}
           <div>
-            <span className="font-serif text-2xl tracking-widest text-white uppercase font-medium">
-              {logo.toLowerCase().endsWith("sa") ? (
-                <>
-                  {logo.slice(0, -2)}
-                  <span className="text-accent font-light">{logo.slice(-2)}</span>
-                </>
-              ) : (
-                logo
-              )}
-            </span>
+            {logo.startsWith("http") || logo.startsWith("data:") ? (
+              <img src={logo} alt="KhashabSA Logo" className="h-10 max-w-[180px] object-contain mb-6 brightness-0 invert" />
+            ) : (
+              <span className="font-serif text-2xl tracking-widest text-white uppercase font-medium">
+                {logo.toLowerCase().endsWith("sa") ? (
+                  <>
+                    {logo.slice(0, -2)}
+                    <span className="text-accent font-light">{logo.slice(-2)}</span>
+                  </>
+                ) : (
+                  logo
+                )}
+              </span>
+            )}
             <p className="mt-6 text-sm text-stone-400 leading-relaxed font-light">
               We design and manufacture unique, high-end wood icons that bring beauty and joy to spaces. 
               Serving corporate, residential, and clinical healthcare sectors in Saudi Arabia since 2015.

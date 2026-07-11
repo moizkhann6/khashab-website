@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useDb, Inquiry, HeroSlide, ClientPartner } from "@/context/DbContext";
 import { Project } from "@/data/projects";
+import { uploadImageAction } from "@/app/actions/upload";
 
 type AdminTab = "dashboard" | "logo" | "projects" | "inquiries" | "clients" | "slider";
 
@@ -26,6 +27,33 @@ export default function AdminPage() {
   } = useDb();
 
   const [activeTab, setActiveTab] = useState<AdminTab>("dashboard");
+  const [isUploading, setIsUploading] = useState(false);
+
+  const handleImageUpload = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+    onSuccess: (url: string) => void
+  ) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsUploading(true);
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const result = await uploadImageAction(formData);
+      if (result.success && result.url) {
+        onSuccess(result.url);
+      } else {
+        alert("Upload failed: " + result.error);
+      }
+    } catch (error) {
+      console.error("Upload error:", error);
+      alert("Upload failed. Please try again.");
+    } finally {
+      setIsUploading(false);
+    }
+  };
 
   // Logo Edit State
   const [logoInput, setLogoInput] = useState("");
@@ -246,11 +274,13 @@ export default function AdminPage() {
 
         {/* 2. LOGO BRANDING */}
         {activeTab === "logo" && (
-          <div className="bg-white border border-stone-200 p-8 max-w-xl">
-            <h3 className="font-serif text-lg text-primary mb-2">Change Site Branding Logo</h3>
-            <p className="text-stone-500 font-light text-xs mb-6">
-              This text is displayed in the main header navigation and footer fields. Currently active logo: **{logo}**
-            </p>
+          <div className="bg-white border border-stone-200 p-8 max-w-xl space-y-6">
+            <div>
+              <h3 className="font-serif text-lg text-primary mb-2">Change Site Branding Logo</h3>
+              <p className="text-stone-500 font-light text-xs">
+                Enter text logo (e.g. KhashabSA) OR upload an image logo to replace the header and footer brand tags.
+              </p>
+            </div>
 
             <form onSubmit={handleLogoSubmit} className="space-y-4">
               <div>
@@ -260,16 +290,42 @@ export default function AdminPage() {
                 <input
                   type="text"
                   required
-                  placeholder={logo}
+                  placeholder={logo.startsWith("data:") || logo.startsWith("http") ? "Image logo is active" : logo}
                   value={logoInput}
                   onChange={(e) => setLogoInput(e.target.value)}
                   className="w-full px-4 py-3 border border-stone-200 text-sm focus:outline-none focus:border-accent bg-white text-stone-900"
                 />
               </div>
-              <button type="submit" className="btn-primary py-3 text-xs tracking-wider">
+              <button type="submit" className="btn-primary py-3 text-xs tracking-wider w-full">
                 Save Logo Text
               </button>
             </form>
+
+            <div className="border-t border-stone-150 pt-6">
+              <label className="block text-xs font-semibold uppercase text-stone-600 tracking-wider mb-2">
+                Or Upload Logo Image
+              </label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => handleImageUpload(e, (url) => updateLogo(url))}
+                disabled={isUploading}
+                className="w-full px-4 py-2 border border-stone-200 text-sm focus:outline-none focus:border-accent bg-white text-stone-900 cursor-pointer"
+              />
+              {isUploading && <span className="text-[10px] text-accent animate-pulse block mt-1">Uploading image...</span>}
+
+              {logo.startsWith("data:") || logo.startsWith("http") ? (
+                <div className="mt-4 border border-stone-200 p-4 bg-stone-50">
+                  <span className="text-[9px] text-stone-400 block mb-2 font-semibold">Active Logo Preview:</span>
+                  <img src={logo} alt="Site Logo" className="h-10 object-contain" />
+                </div>
+              ) : (
+                <div className="mt-4 border border-stone-200 p-4 bg-stone-50">
+                  <span className="text-[9px] text-stone-400 block mb-1 font-semibold">Active Text Logo:</span>
+                  <span className="font-serif text-lg text-primary tracking-widest uppercase font-semibold">{logo}</span>
+                </div>
+              )}
+            </div>
           </div>
         )}
 
@@ -321,16 +377,22 @@ export default function AdminPage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold uppercase text-stone-600 tracking-wider mb-2">Image URL</label>
-                  <select
-                    value={projForm.image}
-                    onChange={(e) => setProjForm({ ...projForm, image: e.target.value })}
-                    className="w-full px-4 py-2 border border-stone-200 text-sm focus:outline-none focus:border-accent bg-white text-stone-900"
-                  >
-                    <option value="/images/residential.jpg">Residential walnut door (Aesthetic slide 1)</option>
-                    <option value="/images/commercial.jpg">Commercial oak boardroom (Aesthetic slide 2)</option>
-                    <option value="/images/healthcare.jpg">Healthcare antimicrobial panel (Aesthetic slide 3)</option>
-                  </select>
+                  <label className="block text-xs font-semibold uppercase text-stone-600 tracking-wider mb-2">Project Image</label>
+                  <div className="flex items-center gap-4">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => handleImageUpload(e, (url) => setProjForm({ ...projForm, image: url }))}
+                      disabled={isUploading}
+                      className="w-full px-4 py-2 border border-stone-200 text-sm focus:outline-none focus:border-accent bg-white text-stone-900 cursor-pointer"
+                    />
+                    {projForm.image && (
+                      <div className="w-16 h-12 relative border border-stone-200 shrink-0 bg-stone-100 flex items-center justify-center overflow-hidden">
+                        <img src={projForm.image} alt="Preview" className="w-full h-full object-cover" />
+                      </div>
+                    )}
+                  </div>
+                  {isUploading && <span className="text-[10px] text-accent animate-pulse block mt-1">Uploading image...</span>}
                 </div>
 
                 <div>
@@ -617,15 +679,21 @@ export default function AdminPage() {
                     </div>
                     <div>
                       <label className="block text-xs font-semibold uppercase text-stone-600 tracking-wider mb-2">Background Image</label>
-                      <select
-                        value={slideForm.image}
-                        onChange={(e) => setSlideForm({ ...slideForm, image: e.target.value })}
-                        className="w-full px-4 py-2 border border-stone-200 text-sm focus:outline-none focus:border-accent bg-white text-stone-900"
-                      >
-                        <option value="/images/residential.jpg">Residential Walnut Door (Aesthetic Image 1)</option>
-                        <option value="/images/commercial.jpg">Commercial Oak Boardroom (Aesthetic Image 2)</option>
-                        <option value="/images/healthcare.jpg">Healthcare Antimicrobial Wall (Aesthetic Image 3)</option>
-                      </select>
+                      <div className="flex items-center gap-4">
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={(e) => handleImageUpload(e, (url) => setSlideForm({ ...slideForm, image: url }))}
+                          disabled={isUploading}
+                          className="w-full px-4 py-2 border border-stone-200 text-sm focus:outline-none focus:border-accent bg-white text-stone-900 cursor-pointer"
+                        />
+                        {slideForm.image && (
+                          <div className="w-16 h-12 relative border border-stone-200 shrink-0 bg-stone-100 flex items-center justify-center overflow-hidden">
+                            <img src={slideForm.image} alt="Preview" className="w-full h-full object-cover" />
+                          </div>
+                        )}
+                      </div>
+                      {isUploading && <span className="text-[10px] text-accent animate-pulse block mt-1">Uploading image...</span>}
                     </div>
                   </div>
 
