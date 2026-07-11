@@ -50,7 +50,7 @@ export default function ScrollytellingSection() {
   }
 
   return (
-    <div ref={containerRef} className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start relative py-12">
+    <div ref={containerRef} className="w-full max-w-full overflow-hidden grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-start relative py-6 lg:py-12">
       
       {/* LEFT PANEL: Sticky Image Viewer (Strictly 2D, visible on desktop only) */}
       <div className="hidden lg:block lg:col-span-6 lg:sticky lg:top-28 z-20 w-full aspect-square overflow-hidden bg-stone-100 border border-stone-200">
@@ -87,12 +87,12 @@ export default function ScrollytellingSection() {
       </div>
 
       {/* RIGHT PANEL: Scrolling Detail Cards (Full width on mobile) */}
-      <div className="col-span-12 lg:col-span-6 space-y-12 lg:space-y-32 lg:pb-32">
+      <div className="w-full max-w-full col-span-12 lg:col-span-6 space-y-8 lg:space-y-32 lg:pb-32">
         {journeySteps.map((step, idx) => (
           <div
             key={step.id}
             id={`step-${step.id}`}
-            className="scrolly-step border border-stone-200 p-6 sm:p-8 lg:p-12 bg-white transition-all duration-300 relative group flex flex-col justify-between min-h-[320px] overflow-hidden"
+            className="scrolly-step w-full max-w-full border border-stone-200 p-5 sm:p-8 lg:p-12 bg-white transition-all duration-300 relative group flex flex-col justify-between min-h-[300px] overflow-hidden"
             style={{
               borderColor: idx === activeStep ? "#8c6239" : "#e7e5e4"
             }}
@@ -111,7 +111,7 @@ export default function ScrollytellingSection() {
               </div>
 
               {/* Mobile Image (Visible only on mobile/tablets) */}
-              <div className="relative w-full aspect-4/3 sm:aspect-video overflow-hidden border border-stone-200 mb-6 block lg:hidden bg-stone-100 shrink-0">
+              <div className="relative w-full aspect-video overflow-hidden border border-stone-200 mb-6 block lg:hidden bg-stone-100 shrink-0">
                 <Image
                   src={step.image}
                   alt={step.title}
