@@ -16,9 +16,9 @@ export default function Footer() {
           {/* Company Bio */}
           <div>
             {logo.startsWith("http") || logo.startsWith("data:") ? (
-              <img src={logo} alt="KhashabSA Logo" className="h-10 max-w-[180px] object-contain mb-6 brightness-0 invert" />
+              <img src={logo} alt="KhashabSA Logo" className="h-14 md:h-16 max-w-[240px] object-contain mb-6 brightness-0 invert" />
             ) : (
-              <span className="font-serif text-2xl tracking-widest text-white uppercase font-medium">
+              <span className="font-serif text-3xl md:text-4xl tracking-widest text-white uppercase font-medium">
                 {logo.toLowerCase().endsWith("sa") ? (
                   <>
                     {logo.slice(0, -2)}

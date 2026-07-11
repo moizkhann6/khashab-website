@@ -84,12 +84,75 @@ const defaultSlides: HeroSlide[] = [
 ];
 
 const defaultClients: ClientPartner[] = [
-  { id: "partner-1", name: "Ministry of Health", role: "MOH Compliance Approved" },
-  { id: "partner-2", name: "ROSHN", role: "Giga-Project Partner" },
-  { id: "partner-3", name: "Dar Al Arkan", role: "Real Estate Supplier" },
-  { id: "partner-4", name: "Diriyah Gate Authority", role: "Joinery Consultant" },
-  { id: "partner-5", name: "National Housing Co.", role: "Door Manufacturer" },
-  { id: "partner-6", name: "KFSHRC", role: "Clinical Casework Client" },
+  { id: "partner-1", name: "Ministry of Health", role: "MOH Compliance Approved", logo: "" },
+  { id: "partner-2", name: "ROSHN", role: "Giga-Project Partner", logo: "" },
+  { id: "partner-3", name: "Dar Al Arkan", role: "Real Estate Supplier", logo: "" },
+  { id: "partner-4", name: "Diriyah Gate Authority", role: "Joinery Consultant", logo: "" },
+  { id: "partner-5", name: "National Housing Co.", role: "Door Manufacturer", logo: "" },
+  { id: "partner-6", name: "KFSHRC", role: "Clinical Casework Client", logo: "" },
+];
+
+export interface CategoryItem {
+  id: string;
+  title: string;
+  image: string;
+  description: string;
+  href: string;
+}
+
+export interface JourneyStep {
+  id: number;
+  title: string;
+  subtitle: string;
+  description: string;
+  image: string;
+  accent: string;
+}
+
+const defaultCategories: CategoryItem[] = [
+  { id: "doors", title: "Bespoke Doors", image: "/images/residential.jpg", description: "Solid pivot and flush interior doors built to custom specs.", href: "/services#doors" },
+  { id: "windows", title: "Premium Windows", image: "/images/commercial.jpg", description: "Climate-adapted timber windows with dual-seal barriers.", href: "/services#windows" },
+  { id: "kitchens", title: "Bespoke Kitchens", image: "/images/residential.jpg", description: "Handle-less luxury cabinetry with moisture-resistant cores.", href: "/services#kitchens" },
+  { id: "wardrobes", title: "Custom Wardrobes", image: "/images/residential.jpg", description: "Seamless integrated dressings and built-in closet units.", href: "/services#wardrobes" },
+  { id: "closets", title: "Luxury Closets", image: "/images/residential.jpg", description: "High-end storage units featuring leather linings and custom lights.", href: "/services#closets" },
+  { id: "bedrooms", title: "Bespoke Bedrooms", image: "/images/residential.jpg", description: "Bed frames, nightstands, and panelings matched to your space.", href: "/services#bedrooms" },
+  { id: "office-furniture", title: "Office Furniture", image: "/images/commercial.jpg", description: "Acoustic panels and monolithic desks built to CAD spec.", href: "/services#office-furniture" },
+  { id: "general-furniture", title: "Custom Furniture", image: "/images/commercial.jpg", description: "Unique wood icons designed to bring joy and beauty to spaces.", href: "/services#general-furniture" },
+];
+
+const defaultJourney: JourneyStep[] = [
+  {
+    id: 1,
+    title: "01. Material Sourcing",
+    subtitle: "Sustainable, Prime Hardwood Selection",
+    description: "Every project starts with selecting the finest raw timber. We sustainably import prime walnut, white oak, ash, and beech. The wood is stored and dried under climate-controlled conditions to match Saudi relative humidity specs, preventing warping and cracking.",
+    image: "/images/residential.jpg",
+    accent: "Walnut & Oak"
+  },
+  {
+    id: 2,
+    title: "02. Shop Drawings & CAD",
+    subtitle: "Micron-Level Engineering Precision",
+    description: "Our Riyadh engineering department translates architectural sketches and tender specifications into detailed CAD shop drawings. We pre-plan internal structural reinforcement, cable pathways, and joinery details before milling.",
+    image: "/images/commercial.jpg",
+    accent: "Engineering Shop"
+  },
+  {
+    id: 3,
+    title: "03. Computerized CNC Milling",
+    subtitle: "Automated Industrial Scaling",
+    description: "Using automated, high-precision German CNC machinery, wood panels and frames are cut to within 0.1mm of specifications. This guarantees consistent joints, matching grains, and rapid lead times for high-volume B2B orders.",
+    image: "/images/commercial.jpg",
+    accent: "CNC Machinery"
+  },
+  {
+    id: 4,
+    title: "04. Sanding & Sterile Coating",
+    subtitle: "ISO 9001 & GMP Hand Finishing",
+    description: "Traditional carpenters sand each piece to a flawless touch. We then apply specialized coatings, including Ministry of Health compliant anti-microbial treatments and fire-retardant sealants, audited under ISO 9001 and GMP standards.",
+    image: "/images/healthcare.jpg",
+    accent: "Anti-Microbial Polish"
+  }
 ];
 
 // 1. DATABASE INITIALIZATION ACTION
@@ -99,7 +162,8 @@ export async function initDbAction() {
     await sql`
       CREATE TABLE IF NOT EXISTS khashab_logo (
         id SERIAL PRIMARY KEY,
-        logo_text TEXT NOT NULL
+        logo_text TEXT NOT NULL,
+        healthcare_bg TEXT DEFAULT '/images/healthcare.jpg'
       );
     `;
 
@@ -151,6 +215,27 @@ export async function initDbAction() {
       );
     `;
 
+    await sql`
+      CREATE TABLE IF NOT EXISTS khashab_categories (
+        id VARCHAR(255) PRIMARY KEY,
+        title TEXT NOT NULL,
+        image TEXT NOT NULL,
+        description TEXT NOT NULL,
+        href TEXT NOT NULL
+      );
+    `;
+
+    await sql`
+      CREATE TABLE IF NOT EXISTS khashab_journey (
+        id INT PRIMARY KEY,
+        title TEXT NOT NULL,
+        subtitle TEXT NOT NULL,
+        description TEXT NOT NULL,
+        image TEXT NOT NULL,
+        accent TEXT NOT NULL
+      );
+    `;
+
     // Alter column types to TEXT if the tables were previously created with VARCHAR(255) limits
     await sql`ALTER TABLE khashab_logo ALTER COLUMN logo_text TYPE TEXT;`;
     
@@ -176,17 +261,23 @@ export async function initDbAction() {
     await sql`ALTER TABLE khashab_inquiries ALTER COLUMN volume TYPE TEXT;`;
     await sql`ALTER TABLE khashab_inquiries ALTER COLUMN date TYPE TEXT;`;
 
-    // Ensure logo column exists on client partners table
+    // Database migrations to ensure new settings and logo columns exist
+    try {
+      await sql`ALTER TABLE khashab_logo ADD COLUMN IF NOT EXISTS healthcare_bg TEXT DEFAULT '/images/healthcare.jpg';`;
+    } catch (e) {
+      console.error("Migration error adding healthcare_bg to khashab_logo:", e);
+    }
+
     try {
       await sql`ALTER TABLE khashab_clients ADD COLUMN IF NOT EXISTS logo TEXT DEFAULT NULL;`;
     } catch (e) {
       console.error("Migration error adding logo column to khashab_clients:", e);
     }
 
-    // B. Seed Default Logo
+    // B. Seed Default Settings & Logo
     const logoCheck = await sql`SELECT * FROM khashab_logo LIMIT 1`;
     if (logoCheck.rowCount === 0) {
-      await sql`INSERT INTO khashab_logo (logo_text) VALUES ('KhashabSA')`;
+      await sql`INSERT INTO khashab_logo (logo_text, healthcare_bg) VALUES ('KhashabSA', '/images/healthcare.jpg')`;
     }
 
     // C. Seed Default Projects
@@ -207,8 +298,8 @@ export async function initDbAction() {
     if (clientsCheck.rowCount === 0) {
       for (const c of defaultClients) {
         await sql`
-          INSERT INTO khashab_clients (id, name, role)
-          VALUES (${c.id}, ${c.name}, ${c.role})
+          INSERT INTO khashab_clients (id, name, role, logo)
+          VALUES (${c.id}, ${c.name}, ${c.role}, ${c.logo || null})
         `;
       }
     }
@@ -225,6 +316,28 @@ export async function initDbAction() {
       }
     }
 
+    // F. Seed Default Product Categories
+    const categoriesCheck = await sql`SELECT * FROM khashab_categories LIMIT 1`;
+    if (categoriesCheck.rowCount === 0) {
+      for (const cat of defaultCategories) {
+        await sql`
+          INSERT INTO khashab_categories (id, title, image, description, href)
+          VALUES (${cat.id}, ${cat.title}, ${cat.image}, ${cat.description}, ${cat.href})
+        `;
+      }
+    }
+
+    // G. Seed Default Journey Steps
+    const journeyCheck = await sql`SELECT * FROM khashab_journey LIMIT 1`;
+    if (journeyCheck.rowCount === 0) {
+      for (const step of defaultJourney) {
+        await sql`
+          INSERT INTO khashab_journey (id, title, subtitle, description, image, accent)
+          VALUES (${step.id}, ${step.title}, ${step.subtitle}, ${step.description}, ${step.image}, ${step.accent})
+        `;
+      }
+    }
+
     return { success: true, message: "Database initialized and seeded successfully!" };
   } catch (error) {
     console.error("Database seed error:", error);
@@ -232,7 +345,7 @@ export async function initDbAction() {
   }
 }
 
-// 2. LOGO ACTIONS
+// 2. LOGO & GENERAL SETTINGS ACTIONS
 export async function getLogoAction() {
   try {
     const { rows } = await sql`SELECT logo_text FROM khashab_logo ORDER BY id ASC LIMIT 1`;
@@ -246,12 +359,42 @@ export async function getLogoAction() {
 
 export async function updateLogoAction(logoText: string) {
   try {
-    // Delete any old logo entries, and insert the new one, ensuring there is exactly 1 row!
-    await sql`DELETE FROM khashab_logo`;
-    await sql`INSERT INTO khashab_logo (logo_text) VALUES (${logoText})`;
+    // Check if row exists, if yes update logo_text, if not insert
+    const check = await sql`SELECT * FROM khashab_logo LIMIT 1`;
+    if (check.rows.length > 0) {
+      await sql`UPDATE khashab_logo SET logo_text = ${logoText}`;
+    } else {
+      await sql`INSERT INTO khashab_logo (logo_text, healthcare_bg) VALUES (${logoText}, '/images/healthcare.jpg')`;
+    }
     return { success: true };
   } catch (error) {
     console.error("Error updating logo:", error);
+    return { success: false, error: String(error) };
+  }
+}
+
+export async function getHealthcareBgAction(): Promise<string> {
+  try {
+    const { rows } = await sql`SELECT healthcare_bg FROM khashab_logo LIMIT 1`;
+    if (rows.length > 0 && rows[0].healthcare_bg) return rows[0].healthcare_bg;
+    return "/images/healthcare.jpg";
+  } catch (error) {
+    console.error("Error fetching healthcare bg:", error);
+    return "/images/healthcare.jpg";
+  }
+}
+
+export async function updateHealthcareBgAction(url: string) {
+  try {
+    const check = await sql`SELECT * FROM khashab_logo LIMIT 1`;
+    if (check.rows.length > 0) {
+      await sql`UPDATE khashab_logo SET healthcare_bg = ${url}`;
+    } else {
+      await sql`INSERT INTO khashab_logo (logo_text, healthcare_bg) VALUES ('KhashabSA', ${url})`;
+    }
+    return { success: true };
+  } catch (error) {
+    console.error("Error updating healthcare bg:", error);
     return { success: false, error: String(error) };
   }
 }
@@ -260,7 +403,6 @@ export async function updateLogoAction(logoText: string) {
 export async function getProjectsAction(): Promise<Project[]> {
   try {
     const { rows } = await sql`SELECT * FROM khashab_projects ORDER BY id DESC`;
-    // Map database field formatting to client keys if necessary (here database exactly matches layout schema)
     return rows as Project[];
   } catch (error) {
     console.error("Error fetching projects:", error);
@@ -418,6 +560,57 @@ export async function deleteInquiryAction(id: string) {
     return { success: true };
   } catch (error) {
     console.error("Error deleting inquiry:", error);
+    return { success: false, error: String(error) };
+  }
+}
+
+// 7. PRODUCT CATEGORY ACTIONS
+export async function getCategoriesAction(): Promise<CategoryItem[]> {
+  try {
+    const { rows } = await sql`SELECT * FROM khashab_categories ORDER BY id ASC`;
+    return rows as CategoryItem[];
+  } catch (error) {
+    console.error("Error fetching product categories:", error);
+    return [];
+  }
+}
+
+export async function updateCategoryAction(id: string, cat: Omit<CategoryItem, "id" | "href">) {
+  try {
+    await sql`
+      UPDATE khashab_categories
+      SET title = ${cat.title}, image = ${cat.image}, description = ${cat.description}
+      WHERE id = ${id}
+    `;
+    return { success: true };
+  } catch (error) {
+    console.error("Error updating category:", error);
+    return { success: false, error: String(error) };
+  }
+}
+
+// 8. JOURNEY / SCROLLYTELLING ACTIONS
+export async function getJourneyAction(): Promise<JourneyStep[]> {
+  try {
+    const { rows } = await sql`SELECT * FROM khashab_journey ORDER BY id ASC`;
+    return rows as JourneyStep[];
+  } catch (error) {
+    console.error("Error fetching journey steps:", error);
+    return [];
+  }
+}
+
+export async function updateJourneyAction(id: number, step: Omit<JourneyStep, "id">) {
+  try {
+    await sql`
+      UPDATE khashab_journey
+      SET title = ${step.title}, subtitle = ${step.subtitle}, 
+          description = ${step.description}, image = ${step.image}, accent = ${step.accent}
+      WHERE id = ${id}
+    `;
+    return { success: true };
+  } catch (error) {
+    console.error("Error updating journey step:", error);
     return { success: false, error: String(error) };
   }
 }

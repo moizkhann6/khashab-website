@@ -19,6 +19,14 @@ import {
   addInquiryAction,
   deleteInquiryAction,
   markInquiryReadAction,
+  getHealthcareBgAction,
+  updateHealthcareBgAction,
+  getCategoriesAction,
+  updateCategoryAction,
+  getJourneyAction,
+  updateJourneyAction,
+  CategoryItem,
+  JourneyStep,
 } from "@/app/actions/db";
 
 // Define Data Models
@@ -57,6 +65,9 @@ interface DbContextType {
   inquiries: Inquiry[];
   clients: ClientPartner[];
   slides: HeroSlide[];
+  categories: CategoryItem[];
+  journeySteps: JourneyStep[];
+  healthcareBg: string;
   isLoaded: boolean;
   updateLogo: (text: string) => Promise<void>;
   addProject: (project: Omit<Project, "id">) => Promise<void>;
@@ -68,6 +79,9 @@ interface DbContextType {
   addClient: (client: Omit<ClientPartner, "id">) => Promise<void>;
   deleteClient: (id: string) => Promise<void>;
   updateSlide: (index: number, slide: HeroSlide) => Promise<void>;
+  updateHealthcareBg: (url: string) => Promise<void>;
+  updateCategory: (id: string, cat: Omit<CategoryItem, "id" | "href">) => Promise<void>;
+  updateJourney: (id: number, step: Omit<JourneyStep, "id">) => Promise<void>;
 }
 
 const DbContext = createContext<DbContextType | undefined>(undefined);
@@ -78,6 +92,9 @@ export function DbProvider({ children }: { children: React.ReactNode }) {
   const [inquiries, setInquiries] = useState<Inquiry[]>([]);
   const [clients, setClients] = useState<ClientPartner[]>([]);
   const [slides, setSlides] = useState<HeroSlide[]>([]);
+  const [categories, setCategories] = useState<CategoryItem[]>([]);
+  const [journeySteps, setJourneySteps] = useState<JourneyStep[]>([]);
+  const [healthcareBg, setHealthcareBg] = useState("/images/healthcare.jpg");
   const [isLoaded, setIsLoaded] = useState(false);
 
   // Initialize and load Postgres database on mount
@@ -88,12 +105,15 @@ export function DbProvider({ children }: { children: React.ReactNode }) {
         await initDbAction();
 
         // B. Fetch Data from Postgres via Server Actions
-        const [dbLogo, dbProjects, dbClients, dbSlides, dbInquiries] = await Promise.all([
+        const [dbLogo, dbProjects, dbClients, dbSlides, dbInquiries, dbCategories, dbJourney, dbHealthcareBg] = await Promise.all([
           getLogoAction(),
           getProjectsAction(),
           getClientsAction(),
           getSlidesAction(),
           getInquiriesAction(),
+          getCategoriesAction(),
+          getJourneyAction(),
+          getHealthcareBgAction(),
         ]);
 
         setLogo(dbLogo);
@@ -101,6 +121,9 @@ export function DbProvider({ children }: { children: React.ReactNode }) {
         setClients(dbClients);
         setSlides(dbSlides);
         setInquiries(dbInquiries);
+        setCategories(dbCategories);
+        setJourneySteps(dbJourney);
+        setHealthcareBg(dbHealthcareBg);
       } catch (error) {
         console.error("Error loading server database:", error);
       } finally {
@@ -113,12 +136,10 @@ export function DbProvider({ children }: { children: React.ReactNode }) {
 
   // Write Helpers
   const updateLogo = async (text: string) => {
-    // Optimistic Update
     setLogo(text);
     const result = await updateLogoAction(text);
     if (!result.success) {
       alert("Failed to update logo on database: " + result.error);
-      // Revert
       const dbLogo = await getLogoAction();
       setLogo(dbLogo);
     }
@@ -214,6 +235,36 @@ export function DbProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const updateHealthcareBg = async (url: string) => {
+    setHealthcareBg(url);
+    const result = await updateHealthcareBgAction(url);
+    if (!result.success) {
+      alert("Failed to update healthcare background: " + result.error);
+      const dbBg = await getHealthcareBgAction();
+      setHealthcareBg(dbBg);
+    }
+  };
+
+  const updateCategory = async (id: string, catData: Omit<CategoryItem, "id" | "href">) => {
+    const result = await updateCategoryAction(id, catData);
+    if (result.success) {
+      const dbCategories = await getCategoriesAction();
+      setCategories(dbCategories);
+    } else {
+      alert("Failed to update product category: " + result.error);
+    }
+  };
+
+  const updateJourney = async (id: number, stepData: Omit<JourneyStep, "id">) => {
+    const result = await updateJourneyAction(id, stepData);
+    if (result.success) {
+      const dbJourney = await getJourneyAction();
+      setJourneySteps(dbJourney);
+    } else {
+      alert("Failed to update journey step: " + result.error);
+    }
+  };
+
   return (
     <DbContext.Provider
       value={{
@@ -222,6 +273,9 @@ export function DbProvider({ children }: { children: React.ReactNode }) {
         inquiries,
         clients,
         slides,
+        categories,
+        journeySteps,
+        healthcareBg,
         isLoaded,
         updateLogo,
         addProject,
@@ -233,6 +287,9 @@ export function DbProvider({ children }: { children: React.ReactNode }) {
         addClient,
         deleteClient,
         updateSlide,
+        updateHealthcareBg,
+        updateCategory,
+        updateJourney,
       }}
     >
       {children}

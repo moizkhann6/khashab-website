@@ -7,19 +7,8 @@ import HeroSlider from "@/components/HeroSlider";
 import ScrollytellingSection from "@/components/ScrollytellingSection";
 import { useDb } from "@/context/DbContext";
 
-const homeServicesTeaser = [
-  { title: "Bespoke Doors", image: "/images/residential.jpg", desc: "Solid pivot and flush interior doors built to custom specs.", href: "/services#doors" },
-  { title: "Premium Windows", image: "/images/commercial.jpg", desc: "Climate-adapted timber windows with dual-seal barriers.", href: "/services#windows" },
-  { title: "Bespoke Kitchens", image: "/images/residential.jpg", desc: "Handle-less luxury cabinetry with moisture-resistant cores.", href: "/services#kitchens" },
-  { title: "Custom Wardrobes", image: "/images/residential.jpg", desc: "Seamless integrated dressings and built-in closet units.", href: "/services#wardrobes" },
-  { title: "Luxury Closets", image: "/images/residential.jpg", desc: "High-end storage units featuring leather linings and custom lights.", href: "/services#closets" },
-  { title: "Bespoke Bedrooms", image: "/images/residential.jpg", desc: "Bed frames, nightstands, and panelings matched to your space.", href: "/services#bedrooms" },
-  { title: "Office Furniture", image: "/images/commercial.jpg", desc: "Acoustic panels and monolithic desks built to CAD spec.", href: "/services#office-furniture" },
-  { title: "Custom Furniture", image: "/images/commercial.jpg", desc: "Unique wood icons designed to bring joy and beauty to spaces.", href: "/services#general-furniture" },
-];
-
 export default function Home() {
-  const { clients } = useDb();
+  const { clients, categories, healthcareBg } = useDb();
 
   return (
     <div className="bg-white">
@@ -73,7 +62,7 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {homeServicesTeaser.map((service, idx) => (
+            {categories.map((service, idx) => (
               <div key={idx} className="card-2d flex flex-col group h-full">
                 <div className="relative aspect-4/3 overflow-hidden bg-stone-100 border-b border-stone-200">
                   <Image
@@ -86,11 +75,11 @@ export default function Home() {
                 </div>
                 <div className="p-6 flex-grow flex flex-col justify-between">
                   <div>
-                    <h3 className="font-serif text-lg text-primary mb-2 group-hover:text-accent transition-colors">
+                    <h3 className="font-serif text-lg text-primary mb-2 group-hover:text-accent transition-colors text-left font-semibold">
                       {service.title}
                     </h3>
-                    <p className="text-stone-500 font-light text-xs leading-relaxed mb-4">
-                      {service.desc}
+                    <p className="text-stone-500 font-light text-xs leading-relaxed mb-4 text-left">
+                      {service.description}
                     </p>
                   </div>
                   <Link href={service.href} className="text-[10px] font-bold uppercase tracking-wider text-accent group-hover:text-primary transition-colors link-underline self-start">
@@ -123,7 +112,10 @@ export default function Home() {
       </section>
 
       {/* 5. Healthcare Specialty Parallax Section */}
-      <section className="relative h-[550px] bg-fixed bg-cover bg-center flex items-center border-b border-stone-900" style={{ backgroundImage: "url('/images/healthcare.jpg')" }}>
+      <section 
+        className="relative h-[550px] bg-fixed bg-cover bg-center flex items-center border-b border-stone-900" 
+        style={{ backgroundImage: `url('${healthcareBg}')` }}
+      >
         {/* Parallax Overlay */}
         <div className="absolute inset-0 bg-black/60 z-0" />
         <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 w-full">
@@ -138,40 +130,24 @@ export default function Home() {
               We design and engineer specialized wood fittings matching strict Ministry of Health standards: moisture resistant, bacteria resistant, fire resistant, and easy to sterilize and clean.
             </p>
             <div className="flex gap-4">
-              <Link href="/healthcare" className="btn-primary">
-                View Clinical specs
+              <Link href="/healthcare" className="btn-primary py-3 px-6 text-xs uppercase tracking-wider">
+                Explore Clinical Specs
               </Link>
-              <span className="text-[10px] font-bold text-accent border border-stone-200 px-3 py-2 uppercase tracking-widest self-center bg-stone-50">
-                MOH Approved
-              </span>
+              <Link href="/contact" className="btn-secondary py-3 px-6 text-xs uppercase tracking-wider">
+                Request Healthcare RFQ
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 6. Portfolio Showcase Gallery */}
-      <section className="bg-white py-24 lg:py-32 border-b border-stone-100">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="text-xs font-bold text-accent uppercase tracking-widest block mb-4">
-              Featured Portfolio
-            </span>
-            <h2 className="text-3xl lg:text-4xl font-serif text-primary mb-4">
-              Our High-End Projects
-            </h2>
-            <p className="text-stone-500 font-light text-sm leading-relaxed">
-              Explore a curated selection of our healthcare, commercial, and residential installations completed across Saudi Arabia.
-            </p>
-          </div>
+      {/* 6. Dynamic Showcase Gallery */}
+      <ImageGallery />
 
-          <ImageGallery />
-        </div>
-      </section>
-
-      {/* 7. Partners & Clients Section */}
-      <section className="bg-sand-light py-24 lg:py-32 border-b border-stone-100">
+      {/* 7. Client Partners logos (B2B Networks) */}
+      <section className="bg-sand-light py-20 lg:py-28 border-b border-stone-100">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="text-center max-w-2xl mx-auto mb-16">
+          <div className="max-w-2xl mb-16 text-left">
             <span className="text-xs font-bold text-accent uppercase tracking-widest block mb-4">
               Our Networks
             </span>
@@ -190,7 +166,7 @@ export default function Home() {
                 className="bg-white border border-stone-200 p-6 flex flex-col justify-center items-center text-center h-28 hover:border-accent transition-colors duration-200 overflow-hidden"
               >
                 {partner.logo ? (
-                  <img src={partner.logo} alt={partner.name} className="max-h-12 max-w-full object-contain" />
+                  <img src={partner.logo} alt={partner.name} className="max-h-12 max-w-full object-contain animate-fade-in" />
                 ) : (
                   <>
                     <span className="font-serif text-sm font-semibold tracking-wider text-stone-850 uppercase block mb-1">
@@ -211,19 +187,14 @@ export default function Home() {
       <section className="bg-stone-900 text-white py-16">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8">
           <div>
-            <h3 className="text-xl lg:text-2xl font-serif text-white mb-2">
-              Ready to specify KhashabSA for your next project?
-            </h3>
-            <p className="text-stone-400 font-light text-sm">
-              We provide architects, designers, and general contractors with full technical CAD details and material specs.
-            </p>
+            <h3 className="font-serif text-2xl mb-2 text-white">Have an active tender or custom design inquiry?</h3>
+            <p className="text-stone-400 font-light text-sm">Our engineers in Riyadh will estimate prices and project lead times within 48 hours.</p>
           </div>
-          <Link href="/contact" className="btn-primary bg-white text-stone-900 border-white hover:bg-[#c59b6d] hover:border-[#c59b6d] hover:text-white shrink-0">
-            Submit RFQ / Spec Request
+          <Link href="/contact" className="bg-white text-stone-900 hover:bg-stone-100 transition-colors py-4 px-8 text-xs uppercase tracking-widest font-semibold shrink-0">
+            Submit Specifications &rarr;
           </Link>
         </div>
       </section>
     </div>
   );
 }
-

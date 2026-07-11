@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CustomCursor from "@/components/CustomCursor";
 import { DbProvider } from "@/context/DbContext";
+import NewsletterPopup from "@/components/NewsletterPopup";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -41,6 +42,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-white text-stone-900">
         <DbProvider>
           <CustomCursor />
+          <NewsletterPopup />
           <Navbar />
           <main className="flex-grow">{children}</main>
           <Footer />

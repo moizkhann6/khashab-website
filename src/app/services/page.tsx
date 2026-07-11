@@ -1,69 +1,11 @@
 import Link from "next/link";
 import { Metadata } from "next";
+import ServicesList from "@/components/ServicesList";
 
 export const metadata: Metadata = {
   title: "Services & Products",
   description: "Explore our premium woodwork services: custom architectural doors, windows, bespoke kitchens, wardrobes, and corporate office furniture.",
 };
-
-const serviceCategories = [
-  {
-    id: "doors",
-    title: "Bespoke Doors",
-    description: "Premium interior and exterior doors engineered for structural integrity. Available in massive pivot formats, flush-to-wall configurations, and certified fire-retardant commercial ratings.",
-    materials: ["Solid Walnut", "Oak Veneer", "Teakwood", "Fire-Rated Core"],
-    features: ["Acoustic sealing", "Heavy-duty hidden pivots", "SASO certified"],
-  },
-  {
-    id: "windows",
-    title: "Premium Windows",
-    description: "Climate-adapted hardwood frames engineered to withstand Gulf temperatures. Features multi-point locking systems and dual-rubber sealing for superior dust and thermal insulation.",
-    materials: ["Teakwood", "Mahogany", "Iroko"],
-    features: ["Double-glazed ready", "Weatherproof sealants", "Thermal insulation"],
-  },
-  {
-    id: "kitchens",
-    title: "Bespoke Kitchens",
-    description: "Luxury minimalist kitchen cabinetry tailored for high-end residential developments. Featuring flush handle-less fronts, integrated lighting channels, and premium moisture-resistant finishes.",
-    materials: ["Marine plywood core", "Premium veneers", "Matte lacquers"],
-    features: ["Soft-close hardware", "Moisture-resistant coating", "Tailored organizers"],
-  },
-  {
-    id: "wardrobes",
-    title: "Custom Wardrobes",
-    description: "Sleek, integrated built-in wardrobes and walk-in dressing rooms. Engineered with internal drawer organizers, integrated LED arrays, and seamless floor-to-ceiling panels.",
-    materials: ["Smoked oak veneer", "Fabric-lined drawers", "Lacquered panels"],
-    features: ["Seamless sliding rails", "Built-in drawer systems", "Modular framing"],
-  },
-  {
-    id: "closets",
-    title: "Luxury Closets",
-    description: "Tailored closet spaces engineered for maximum aesthetic space efficiency. Combines rich hardwood accents, premium vanity desks, and custom lighting panels.",
-    materials: ["Cedar wood", "Eucalyptus veneer", "Leather lining"],
-    features: ["Hidden security safes", "Custom glass display doors", "Anti-dust seals"],
-  },
-  {
-    id: "bedrooms",
-    title: "Bespoke Bedrooms",
-    description: "Custom-made bed frames, headboards, nightstands, and dressing tables that coordinate seamlessly with architectural wall paneling.",
-    materials: ["American Walnut", "Ash Wood", "Premium upholstery backing"],
-    features: ["Floating bed frames", "Integrated bedside panels", "Touch-to-open drawers"],
-  },
-  {
-    id: "office-furniture",
-    title: "Office Furniture",
-    description: "B2B office furniture built to architectural specifications. Custom boardroom tables, monolithic reception desks, and modular wood slatted acoustic cladding.",
-    materials: ["American Walnut", "Ash Wood", "Brushed metal integration"],
-    features: ["Hidden power pathways", "Acoustic absorption options", "Durable scratch-proof surface oils"],
-  },
-  {
-    id: "general-furniture",
-    title: "Custom Furniture",
-    description: "Unique, high-end wood icons and freestanding furniture pieces that bring beauty and joy to hospitality and residential settings.",
-    materials: ["Oak", "Ash", "Maple", "Exotic veneers"],
-    features: ["Precision hand-finishing", "Custom stains & coloring", "Sustainable sourcing"],
-  },
-];
 
 const comprehensiveServices = [
   { title: "Interior & Exterior Decorations", desc: "Premium architectural wooden wall paneling, ceiling grids, slatted features, and entrance claddings." },
@@ -90,70 +32,16 @@ export default function ServicesPage() {
           <span className="text-xs font-bold text-accent uppercase tracking-widest block mb-4">
             Our Offerings
           </span>
-          <h1 className="text-4xl lg:text-5xl font-serif text-primary leading-tight max-w-2xl">
+          <h1 className="text-4xl lg:text-5xl font-serif text-primary leading-tight max-w-2xl text-left font-medium">
             Bespoke Woodwork Engineered to Specification
           </h1>
         </div>
       </section>
 
-      {/* Services Grid */}
+      {/* Services Grid (Dynamic DB Categories) */}
       <section className="py-24 lg:py-32">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="space-y-16">
-            {serviceCategories.map((service, index) => (
-              <div
-                key={service.id}
-                className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 py-12 border-b border-stone-200 last:border-0 items-start"
-              >
-                {/* Visual number / index */}
-                <div className="lg:col-span-1">
-                  <span className="font-serif text-3xl font-light text-stone-300 block">
-                    {(index + 1).toString().padStart(2, "0")}
-                  </span>
-                </div>
-
-                {/* Service Details */}
-                <div className="lg:col-span-6 space-y-4">
-                  <h2 className="text-2xl font-serif text-primary">
-                    {service.title}
-                  </h2>
-                  <p className="text-stone-600 font-light text-sm leading-relaxed">
-                    {service.description}
-                  </p>
-                </div>
-
-                {/* Materials & Features List */}
-                <div className="lg:col-span-5 grid grid-cols-2 gap-6 bg-stone-50 p-6 border border-stone-200">
-                  <div>
-                    <h4 className="text-[10px] font-bold uppercase tracking-wider text-accent mb-3">
-                      Timber & Core Specs
-                    </h4>
-                    <ul className="space-y-2 text-xs font-light text-stone-600">
-                      {service.materials.map((mat, i) => (
-                        <li key={i} className="flex items-center">
-                          <span className="w-1 h-1 bg-accent mr-2"></span>
-                          {mat}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div>
-                    <h4 className="text-[10px] font-bold uppercase tracking-wider text-accent mb-3">
-                      Performance Details
-                    </h4>
-                    <ul className="space-y-2 text-xs font-light text-stone-600">
-                      {service.features.map((feat, i) => (
-                        <li key={i} className="flex items-center">
-                          <span className="w-1 h-1 bg-accent mr-2"></span>
-                          {feat}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+          <ServicesList />
         </div>
       </section>
 
@@ -177,10 +65,10 @@ export default function ServicesPage() {
             {comprehensiveServices.map((comp, idx) => (
               <div key={idx} className="card-2d bg-white p-8 h-full flex flex-col justify-between">
                 <div>
-                  <h3 className="font-serif text-lg text-primary mb-3">
+                  <h3 className="font-serif text-lg text-primary mb-3 text-left font-medium">
                     {comp.title}
                   </h3>
-                  <p className="text-stone-500 font-light text-xs leading-relaxed">
+                  <p className="text-stone-550 font-light text-xs leading-relaxed text-left">
                     {comp.desc}
                   </p>
                 </div>
@@ -205,13 +93,13 @@ export default function ServicesPage() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {steps.map((step) => (
               <div key={step.number} className="relative bg-white border border-stone-200 p-8 h-full">
-                <span className="font-serif text-4xl font-light text-accent/20 block mb-6">
+                <span className="font-serif text-4xl font-light text-accent/20 block mb-6 text-left">
                   {step.number}
                 </span>
-                <h3 className="font-serif text-lg text-primary mb-3">
+                <h3 className="font-serif text-lg text-primary mb-3 text-left font-medium">
                   {step.name}
                 </h3>
-                <p className="text-stone-500 font-light text-xs leading-relaxed">
+                <p className="text-stone-550 font-light text-xs leading-relaxed text-left">
                   {step.desc}
                 </p>
               </div>

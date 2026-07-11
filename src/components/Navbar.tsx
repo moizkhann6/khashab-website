@@ -32,9 +32,9 @@ export default function Navbar() {
           {/* Logo */}
           <Link href="/" className="group flex items-center space-x-2">
             {logo.startsWith("http") || logo.startsWith("data:") ? (
-              <img src={logo} alt="KhashabSA Logo" className="h-10 max-w-[180px] object-contain" />
+              <img src={logo} alt="KhashabSA Logo" className="h-14 md:h-16 max-w-[240px] object-contain" />
             ) : (
-              <span className="font-serif text-2xl tracking-widest text-primary uppercase font-medium">
+              <span className="font-serif text-3xl md:text-4xl tracking-widest text-primary uppercase font-medium">
                 {logo.toLowerCase().endsWith("sa") ? (
                   <>
                     {logo.slice(0, -2)}
