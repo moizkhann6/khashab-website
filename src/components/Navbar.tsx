@@ -3,10 +3,12 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useDb } from "@/context/DbContext";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
+  const { logo } = useDb();
 
   const links = [
     { href: "/", label: "Home" },
@@ -30,7 +32,14 @@ export default function Navbar() {
           {/* Logo */}
           <Link href="/" className="group flex items-center space-x-2">
             <span className="font-serif text-2xl tracking-widest text-primary uppercase font-medium">
-              Khashab<span className="text-accent font-light">SA</span>
+              {logo.toLowerCase().endsWith("sa") ? (
+                <>
+                  {logo.slice(0, -2)}
+                  <span className="text-accent font-light">{logo.slice(-2)}</span>
+                </>
+              ) : (
+                logo
+              )}
             </span>
           </Link>
 

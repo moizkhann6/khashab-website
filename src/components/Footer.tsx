@@ -1,7 +1,11 @@
+"use client";
+
 import Link from "next/link";
+import { useDb } from "@/context/DbContext";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const { logo } = useDb();
 
   return (
     <footer className="bg-stone-900 text-stone-300 border-t border-stone-800">
@@ -12,7 +16,14 @@ export default function Footer() {
           {/* Company Bio */}
           <div>
             <span className="font-serif text-2xl tracking-widest text-white uppercase font-medium">
-              Khashab<span className="text-accent font-light">SA</span>
+              {logo.toLowerCase().endsWith("sa") ? (
+                <>
+                  {logo.slice(0, -2)}
+                  <span className="text-accent font-light">{logo.slice(-2)}</span>
+                </>
+              ) : (
+                logo
+              )}
             </span>
             <p className="mt-6 text-sm text-stone-400 leading-relaxed font-light">
               We design and manufacture unique, high-end wood icons that bring beauty and joy to spaces. 
@@ -92,6 +103,7 @@ export default function Footer() {
             &copy; {currentYear} KhashabSA. All rights reserved.
           </p>
           <div className="mt-4 md:mt-0 flex space-x-6">
+            <Link href="/admin" className="hover:text-white transition-colors">Admin Dashboard</Link>
             <a href="https://www.khashab.net" className="hover:text-white transition-colors">www.khashab.net</a>
             <span>CR No: 1010484920</span>
             <span>Made in Saudi Arabia</span>

@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { useDb } from "@/context/DbContext";
 
 export default function QuoteForm() {
+  const { addInquiry } = useDb();
   const [formData, setFormData] = useState({
     name: "",
     company: "",
@@ -20,6 +22,17 @@ export default function QuoteForm() {
     e.preventDefault();
     setIsSubmitting(true);
     
+    // Save in local storage CMS
+    addInquiry({
+      name: formData.name,
+      company: formData.company,
+      email: formData.email,
+      phone: formData.phone,
+      category: formData.category,
+      volume: formData.volume,
+      details: formData.details,
+    });
+
     // Simulate API request
     setTimeout(() => {
       setIsSubmitting(false);

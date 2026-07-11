@@ -2,10 +2,14 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { projects, Project } from "@/data/projects";
+import { useDb } from "@/context/DbContext";
+import { Project } from "@/data/projects";
+import ProjectModal from "@/components/ProjectModal";
 
 export default function ImageGallery() {
   const [activeCategory, setActiveCategory] = useState<string>("all");
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const { projects } = useDb();
 
   const categories = [
     { id: "all", label: "All Projects" },
@@ -40,7 +44,11 @@ export default function ImageGallery() {
       {/* Projects Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {filteredProjects.map((project) => (
-          <article key={project.id} className="card-2d flex flex-col group h-full">
+          <article 
+            key={project.id} 
+            onClick={() => setSelectedProject(project)}
+            className="card-2d flex flex-col group h-full cursor-pointer"
+          >
             {/* Image Wrapper */}
             <div className="relative aspect-3/2 w-full overflow-hidden bg-stone-100 border-b border-stone-200">
               <Image
@@ -89,6 +97,12 @@ export default function ImageGallery() {
           </article>
         ))}
       </div>
+
+      {/* Project Details Modal */}
+      <ProjectModal 
+        project={selectedProject} 
+        onClose={() => setSelectedProject(null)} 
+      />
     </div>
   );
 }

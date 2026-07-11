@@ -1,8 +1,11 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import ImageGallery from "@/components/ImageGallery";
 import HeroSlider from "@/components/HeroSlider";
 import ScrollytellingSection from "@/components/ScrollytellingSection";
+import { useDb } from "@/context/DbContext";
 
 const homeServicesTeaser = [
   { title: "Bespoke Doors", image: "/images/residential.jpg", desc: "Solid pivot and flush interior doors built to custom specs.", href: "/services#doors" },
@@ -15,16 +18,9 @@ const homeServicesTeaser = [
   { title: "Custom Furniture", image: "/images/commercial.jpg", desc: "Unique wood icons designed to bring joy and beauty to spaces.", href: "/services#general-furniture" },
 ];
 
-const partners = [
-  { name: "Ministry of Health", role: "MOH Compliance Approved" },
-  { name: "ROSHN", role: "Giga-Project Partner" },
-  { name: "Dar Al Arkan", role: "Real Estate Supplier" },
-  { name: "Diriyah Gate Authority", role: "Joinery Consultant" },
-  { name: "National Housing Co.", role: "Door Manufacturer" },
-  { name: "KFSHRC", role: "Clinical Casework Client" },
-];
-
 export default function Home() {
+  const { clients } = useDb();
+
   return (
     <div className="bg-white">
       {/* 1. Hero Image Slider */}
@@ -188,9 +184,9 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-            {partners.map((partner, i) => (
+            {clients.map((partner) => (
               <div
-                key={i}
+                key={partner.id}
                 className="bg-white border border-stone-200 p-6 flex flex-col justify-center items-center text-center h-28 hover:border-accent transition-colors duration-200"
               >
                 <span className="font-serif text-sm font-semibold tracking-wider text-stone-850 uppercase block mb-1">

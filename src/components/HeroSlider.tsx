@@ -4,50 +4,37 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-const slides = [
-  {
-    image: "/images/residential.jpg",
-    category: "Residential Bespoke",
-    title: "Quality that lasts, Elegance that impresses.",
-    subtitle: "Sleek architectural doors, built-in wardrobes, and custom interior carpentry designed for luxury residential living.",
-    linkText: "Explore Residential Solutions",
-    linkHref: "/services#doors",
-  },
-  {
-    image: "/images/commercial.jpg",
-    category: "Commercial Fit-Outs",
-    title: "Precision engineering for modern B2B spaces.",
-    subtitle: "Custom boardrooms, reception counters, and acoustic slatted wood panelling crafted to corporate specifications.",
-    linkText: "Explore Commercial Services",
-    linkHref: "/services#furniture",
-  },
-  {
-    image: "/images/healthcare.jpg",
-    category: "Specialized Division",
-    title: "MOH-compliant clinical wood solutions.",
-    subtitle: "Anti-microbial laminates, seamless joints, and certified fire-rated door assemblies engineered for safety and hygiene.",
-    linkText: "Explore Healthcare Specs",
-    linkHref: "/healthcare",
-  },
-];
+import { useDb } from "@/context/DbContext";
 
 export default function HeroSlider() {
   const [current, setCurrent] = useState(0);
+  const { slides, isLoaded } = useDb();
 
   useEffect(() => {
+    if (slides.length === 0) return;
     const timer = setInterval(() => {
       setCurrent((prev) => (prev + 1) % slides.length);
     }, 6000);
     return () => clearInterval(timer);
-  }, []);
+  }, [slides.length]);
 
   const nextSlide = () => {
+    if (slides.length === 0) return;
     setCurrent((prev) => (prev + 1) % slides.length);
   };
 
   const prevSlide = () => {
+    if (slides.length === 0) return;
     setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
   };
+
+  if (!isLoaded || slides.length === 0) {
+    return (
+      <div className="h-[650px] lg:h-[750px] bg-stone-950 flex items-center justify-center text-stone-400 font-serif text-sm tracking-wider">
+        Loading Presentation...
+      </div>
+    );
+  }
 
   return (
     <section className="relative h-[650px] lg:h-[750px] bg-stone-950 overflow-hidden border-b border-stone-900">

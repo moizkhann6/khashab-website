@@ -1,19 +1,11 @@
 import { Metadata } from "next";
 import QuoteForm from "@/components/QuoteForm";
+import ContactPartners from "@/components/ContactPartners";
 
 export const metadata: Metadata = {
   title: "Contact & Partners",
   description: "Get in touch with KhashabSA's Riyadh engineering office, request a B2B woodwork specification quote, or view our local Saudi development partners.",
 };
-
-const partners = [
-  { name: "Ministry of Health", role: "Clinical Compliance Partner" },
-  { name: "ROSHN", role: "Residential Giga-Project Partner" },
-  { name: "Dar Al Arkan", role: "Luxury Real Estate Supplier" },
-  { name: "Diriyah Gate Authority", role: "Historic Joinery Consultant" },
-  { name: "National Housing Co.", role: "High-Volume Door Manufacturer" },
-  { name: "KFSHRC", role: "Antimicrobial panelling Client" },
-];
 
 export default function ContactPage() {
   return (
@@ -116,21 +108,7 @@ export default function ContactPage() {
           </div>
 
           {/* Elegant 2D minimalist client logo cards */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-            {partners.map((partner, i) => (
-              <div
-                key={i}
-                className="bg-white border border-stone-200 p-6 flex flex-col justify-center items-center text-center h-28 hover:border-accent transition-colors duration-200"
-              >
-                <span className="font-serif text-sm font-semibold tracking-wider text-stone-800 uppercase block mb-1">
-                  {partner.name}
-                </span>
-                <span className="text-[9px] font-light text-stone-400 uppercase tracking-widest block">
-                  {partner.role}
-                </span>
-              </div>
-            ))}
-          </div>
+          <ContactPartners />
         </div>
       </section>
     </div>

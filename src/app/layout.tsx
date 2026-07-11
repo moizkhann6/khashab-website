@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CustomCursor from "@/components/CustomCursor";
+import { DbProvider } from "@/context/DbContext";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -38,10 +39,12 @@ export default function RootLayout({
       className={`${inter.variable} ${cormorant.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-white text-stone-900">
-        <CustomCursor />
-        <Navbar />
-        <main className="flex-grow">{children}</main>
-        <Footer />
+        <DbProvider>
+          <CustomCursor />
+          <Navbar />
+          <main className="flex-grow">{children}</main>
+          <Footer />
+        </DbProvider>
       </body>
     </html>
   );
