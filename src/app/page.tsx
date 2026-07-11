@@ -32,17 +32,17 @@ export default function Home() {
               </div>
 
               {/* Certification Logos Grid */}
-              <div className="flex flex-wrap gap-3 mt-4 justify-start items-center">
+              <div className="flex flex-wrap gap-6 lg:gap-8 mt-6 justify-start items-center">
                 {certifications && certifications.map((cert) => (
                   <div 
                     key={cert.id}
-                    className="h-10 px-3 border border-stone-300/80 bg-white flex items-center justify-center text-center select-none hover:border-accent transition-colors duration-200"
+                    className="flex items-center justify-center select-none"
                     title={cert.name}
                   >
                     {cert.logo.startsWith("http") || cert.logo.startsWith("data:") ? (
-                      <img src={cert.logo} alt={cert.name} className="h-6 max-w-full object-contain filter grayscale hover:grayscale-0 transition-all duration-200" />
+                      <img src={cert.logo} alt={cert.name} className="h-10 md:h-12 w-auto object-contain transition-transform duration-200 hover:scale-105" />
                     ) : (
-                      <span className="text-[9px] font-sans font-bold uppercase tracking-wider text-stone-500 whitespace-nowrap">
+                      <span className="text-xs font-sans font-bold uppercase tracking-widest text-accent whitespace-nowrap">
                         {cert.logo}
                       </span>
                     )}
