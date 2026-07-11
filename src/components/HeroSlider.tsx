@@ -50,7 +50,7 @@ export default function HeroSlider() {
   };
 
   return (
-    <section className="relative h-[650px] lg:h-[750px] bg-white overflow-hidden border-b border-stone-100">
+    <section className="relative h-[650px] lg:h-[750px] bg-stone-950 overflow-hidden border-b border-stone-900">
       {/* Background Image Slides (Smooth Crossfade, 2D) */}
       <div className="absolute inset-0 z-0">
         {slides.map((slide, idx) => (
@@ -68,8 +68,8 @@ export default function HeroSlider() {
               className="object-cover"
               sizes="100vw"
             />
-            {/* Minimalist Solid White/Beige Overlay (85% opacity to keep text legible and maintain white background tone) */}
-            <div className="absolute inset-0 bg-white/85" />
+            {/* Minimalist Solid Light Black Overlay (50% opacity for cinematic woodwork contrast) */}
+            <div className="absolute inset-0 bg-black/50" />
           </div>
         ))}
       </div>
@@ -87,23 +87,23 @@ export default function HeroSlider() {
                   : "hidden opacity-0 translate-y-4"
               }`}
             >
-              <span className="text-xs font-bold text-accent uppercase tracking-widest block mb-4">
+              <span className="text-xs font-bold text-[#c59b6d] uppercase tracking-widest block mb-4">
                 {slide.category}
               </span>
-              <h1 className="text-4xl sm:text-6xl font-serif text-primary leading-[1.1] mb-6">
+              <h1 className="text-4xl sm:text-6xl font-serif text-white leading-[1.1] mb-6">
                 {slide.title.split(",")[0]},<br />
-                <span className="italic font-light text-stone-500">
+                <span className="italic font-light text-stone-300">
                   {slide.title.split(",")[1]?.trim() || ""}
                 </span>
               </h1>
-              <p className="text-stone-600 font-light text-base sm:text-lg leading-relaxed mb-10 max-w-xl">
+              <p className="text-stone-300 font-light text-base sm:text-lg leading-relaxed mb-10 max-w-xl">
                 {slide.subtitle}
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Link href="/contact" className="btn-primary">
+                <Link href="/contact" className="btn-primary bg-white text-stone-950 border-white hover:bg-[#c59b6d] hover:border-[#c59b6d] hover:text-white">
                   Request Specifications
                 </Link>
-                <Link href={slide.linkHref} className="btn-secondary">
+                <Link href={slide.linkHref} className="btn-secondary border-white text-white hover:bg-white hover:text-stone-950">
                   {slide.linkText}
                 </Link>
               </div>
@@ -113,9 +113,9 @@ export default function HeroSlider() {
       </div>
 
       {/* Slider Controls & Slide Indicators */}
-      <div className="absolute bottom-10 right-6 lg:right-12 z-20 flex items-center space-x-6 bg-white border border-stone-200 p-4">
+      <div className="absolute bottom-10 right-6 lg:right-12 z-20 flex items-center space-x-6 bg-stone-950/90 border border-stone-800 p-4">
         {/* Slide Fraction Counter */}
-        <span className="font-serif text-xs font-medium tracking-widest text-stone-500">
+        <span className="font-serif text-xs font-medium tracking-widest text-stone-400">
           {(current + 1).toString().padStart(2, "0")} / {slides.length.toString().padStart(2, "0")}
         </span>
 
@@ -124,14 +124,14 @@ export default function HeroSlider() {
           <button
             onClick={prevSlide}
             aria-label="Previous slide"
-            className="w-8 h-8 flex items-center justify-center border border-stone-200 text-stone-600 hover:bg-stone-900 hover:text-white hover:border-stone-900 transition-colors duration-200 cursor-pointer"
+            className="w-8 h-8 flex items-center justify-center border border-stone-800 text-stone-400 hover:bg-white hover:text-stone-950 hover:border-white transition-colors duration-200 cursor-pointer"
           >
             &larr;
           </button>
           <button
             onClick={nextSlide}
             aria-label="Next slide"
-            className="w-8 h-8 flex items-center justify-center border border-stone-200 text-stone-600 hover:bg-stone-900 hover:text-white hover:border-stone-900 transition-colors duration-200 cursor-pointer"
+            className="w-8 h-8 flex items-center justify-center border border-stone-800 text-stone-400 hover:bg-white hover:text-stone-950 hover:border-white transition-colors duration-200 cursor-pointer"
           >
             &rarr;
           </button>
