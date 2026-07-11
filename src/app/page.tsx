@@ -9,7 +9,7 @@ import { useDb } from "@/context/DbContext";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function Home() {
-  const { clients, categories, healthcareBg } = useDb();
+  const { clients, categories, healthcareBg, certifications } = useDb();
   const { t } = useLanguage();
 
   return (
@@ -21,13 +21,34 @@ export default function Home() {
       <section className="bg-sand-light py-20 lg:py-28 border-b border-stone-100">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
-            <div className="lg:col-span-5">
-              <span className="text-xs font-bold text-accent uppercase tracking-widest block mb-4 text-left">
-                {t("brand.est")}
-              </span>
-              <h2 className="text-3xl lg:text-4xl font-serif text-primary leading-tight text-left font-medium">
-                {t("brand.hero_title")}
-              </h2>
+            <div className="lg:col-span-5 flex flex-col justify-between h-full min-h-[220px]">
+              <div>
+                <span className="text-xs font-bold text-accent uppercase tracking-widest block mb-4 text-left">
+                  {t("brand.est")}
+                </span>
+                <h2 className="text-3xl lg:text-4xl font-serif text-primary leading-tight text-left font-medium mb-6">
+                  {t("brand.hero_title")}
+                </h2>
+              </div>
+
+              {/* Certification Logos Grid */}
+              <div className="flex flex-wrap gap-3 mt-4 justify-start items-center">
+                {certifications && certifications.map((cert) => (
+                  <div 
+                    key={cert.id}
+                    className="h-10 px-3 border border-stone-300/80 bg-white flex items-center justify-center text-center select-none hover:border-accent transition-colors duration-200"
+                    title={cert.name}
+                  >
+                    {cert.logo.startsWith("http") || cert.logo.startsWith("data:") ? (
+                      <img src={cert.logo} alt={cert.name} className="h-6 max-w-full object-contain filter grayscale hover:grayscale-0 transition-all duration-200" />
+                    ) : (
+                      <span className="text-[9px] font-sans font-bold uppercase tracking-wider text-stone-500 whitespace-nowrap">
+                        {cert.logo}
+                      </span>
+                    )}
+                  </div>
+                ))}
+              </div>
             </div>
             <div className="lg:col-span-7 space-y-6">
               <p className="text-stone-600 font-light text-base leading-relaxed text-left">

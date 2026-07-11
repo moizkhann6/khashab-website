@@ -25,8 +25,12 @@ import {
   updateCategoryAction,
   getJourneyAction,
   updateJourneyAction,
+  getCertificationsAction,
+  addCertificationAction,
+  deleteCertificationAction,
   CategoryItem,
   JourneyStep,
+  Certification,
 } from "@/app/actions/db";
 
 // Define Data Models
@@ -82,6 +86,9 @@ interface DbContextType {
   updateHealthcareBg: (url: string) => Promise<void>;
   updateCategory: (id: string, cat: Omit<CategoryItem, "id" | "href">) => Promise<void>;
   updateJourney: (id: number, step: Omit<JourneyStep, "id">) => Promise<void>;
+  certifications: Certification[];
+  addCertification: (cert: Omit<Certification, "id">) => Promise<void>;
+  deleteCertification: (id: string) => Promise<void>;
 }
 
 const DbContext = createContext<DbContextType | undefined>(undefined);
@@ -95,6 +102,7 @@ export function DbProvider({ children }: { children: React.ReactNode }) {
   const [categories, setCategories] = useState<CategoryItem[]>([]);
   const [journeySteps, setJourneySteps] = useState<JourneyStep[]>([]);
   const [healthcareBg, setHealthcareBg] = useState("/images/healthcare.jpg");
+  const [certifications, setCertifications] = useState<Certification[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
   // Initialize and load Postgres database on mount
@@ -102,7 +110,7 @@ export function DbProvider({ children }: { children: React.ReactNode }) {
     async function loadDatabase() {
       try {
         // A. Fetch Data from Postgres directly (extremely fast bypass)
-        const [dbLogo, dbProjects, dbClients, dbSlides, dbInquiries, dbCategories, dbJourney, dbHealthcareBg] = await Promise.all([
+        const [dbLogo, dbProjects, dbClients, dbSlides, dbInquiries, dbCategories, dbJourney, dbHealthcareBg, dbCerts] = await Promise.all([
           getLogoAction(),
           getProjectsAction(),
           getClientsAction(),
@@ -111,6 +119,7 @@ export function DbProvider({ children }: { children: React.ReactNode }) {
           getCategoriesAction(),
           getJourneyAction(),
           getHealthcareBgAction(),
+          getCertificationsAction(),
         ]);
 
         setLogo(dbLogo);
@@ -121,6 +130,7 @@ export function DbProvider({ children }: { children: React.ReactNode }) {
         setCategories(dbCategories);
         setJourneySteps(dbJourney);
         setHealthcareBg(dbHealthcareBg);
+        setCertifications(dbCerts);
       } catch (error) {
         console.warn("Database tables might not exist, self-healing initialization in progress...", error);
         try {
@@ -128,7 +138,7 @@ export function DbProvider({ children }: { children: React.ReactNode }) {
           await initDbAction();
 
           // C. Re-fetch after seeding completes
-          const [dbLogo, dbProjects, dbClients, dbSlides, dbInquiries, dbCategories, dbJourney, dbHealthcareBg] = await Promise.all([
+          const [dbLogo, dbProjects, dbClients, dbSlides, dbInquiries, dbCategories, dbJourney, dbHealthcareBg, dbCerts] = await Promise.all([
             getLogoAction(),
             getProjectsAction(),
             getClientsAction(),
@@ -137,6 +147,7 @@ export function DbProvider({ children }: { children: React.ReactNode }) {
             getCategoriesAction(),
             getJourneyAction(),
             getHealthcareBgAction(),
+            getCertificationsAction(),
           ]);
 
           setLogo(dbLogo);
@@ -147,6 +158,7 @@ export function DbProvider({ children }: { children: React.ReactNode }) {
           setCategories(dbCategories);
           setJourneySteps(dbJourney);
           setHealthcareBg(dbHealthcareBg);
+          setCertifications(dbCerts);
         } catch (initError) {
           console.error("Critical error during self-healing database load:", initError);
         }
@@ -289,6 +301,26 @@ export function DbProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const addCertification = async (certData: Omit<Certification, "id">) => {
+    const result = await addCertificationAction(certData);
+    if (result.success) {
+      const dbCerts = await getCertificationsAction();
+      setCertifications(dbCerts);
+    } else {
+      alert("Failed to add certification: " + result.error);
+    }
+  };
+
+  const deleteCertification = async (id: string) => {
+    const result = await deleteCertificationAction(id);
+    if (result.success) {
+      const dbCerts = await getCertificationsAction();
+      setCertifications(dbCerts);
+    } else {
+      alert("Failed to delete certification: " + result.error);
+    }
+  };
+
   return (
     <DbContext.Provider
       value={{
@@ -314,6 +346,9 @@ export function DbProvider({ children }: { children: React.ReactNode }) {
         updateHealthcareBg,
         updateCategory,
         updateJourney,
+        certifications,
+        addCertification,
+        deleteCertification,
       }}
     >
       {children}

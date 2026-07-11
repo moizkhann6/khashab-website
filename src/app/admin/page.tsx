@@ -6,7 +6,7 @@ import { Project } from "@/data/projects";
 import { uploadImageAction } from "@/app/actions/upload";
 import { CategoryItem, JourneyStep } from "@/app/actions/db";
 
-type AdminTab = "dashboard" | "logo" | "projects" | "inquiries" | "clients" | "slider" | "categories" | "journey";
+type AdminTab = "dashboard" | "logo" | "projects" | "inquiries" | "clients" | "slider" | "categories" | "journey" | "certs";
 
 export default function AdminPage() {
   const {
@@ -31,10 +31,14 @@ export default function AdminPage() {
     updateHealthcareBg,
     updateCategory,
     updateJourney,
+    certifications,
+    addCertification,
+    deleteCertification,
   } = useDb();
 
   const [activeTab, setActiveTab] = useState<AdminTab>("dashboard");
   const [isUploading, setIsUploading] = useState(false);
+  const [certForm, setCertForm] = useState({ name: "", logo: "ISO 9001" });
 
   const handleImageUpload = async (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -241,6 +245,7 @@ export default function AdminPage() {
             { id: "inquiries", label: `B2B Inquiries (${inquiries.filter(i => !i.read).length})`, icon: "📨" },
             { id: "clients", label: "Clients & Partners", icon: "🤝" },
             { id: "slider", label: "Hero Slider", icon: "🎞️" },
+            { id: "certs", label: "Certifications", icon: "🎖️" },
           ].map((tab) => (
             <button
               key={tab.id}
@@ -270,6 +275,7 @@ export default function AdminPage() {
             {activeTab === "inquiries" && "B2B Specifications Log"}
             {activeTab === "clients" && "Partner Relations"}
             {activeTab === "slider" && "Slideshow Manager"}
+            {activeTab === "certs" && "Certification Badges Manager"}
           </h1>
           <span className="text-xs text-stone-500 font-light font-mono">
             Secure Session
@@ -1053,6 +1059,118 @@ export default function AdminPage() {
             )}
           </div>
         )}
+
+        {/* 9. CERTIFICATION BADGES TAB */}
+        {activeTab === "certs" && (
+          <div className="space-y-12">
+            
+            {/* Add Certification */}
+            <div className="bg-white border border-stone-200 p-8">
+              <h3 className="font-serif text-lg text-primary mb-6 font-medium">Add Certification Logo / Placeholder</h3>
+              <form 
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  if (!certForm.name || !certForm.logo) return;
+                  addCertification(certForm);
+                  setCertForm({ name: "", logo: "" });
+                  alert("Certification added successfully!");
+                }}
+                className="space-y-4 max-w-xl"
+              >
+                <div>
+                  <label className="block text-xs font-semibold uppercase text-stone-600 tracking-wider mb-2">Certification Name</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. ISO 9001:2015, Saudi Made"
+                    value={certForm.name}
+                    onChange={(e) => setCertForm({ ...certForm, name: e.target.value })}
+                    className="w-full px-4 py-2 border border-stone-200 text-sm focus:outline-none focus:border-accent bg-white text-stone-900"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold uppercase text-stone-600 tracking-wider mb-2">
+                    Logo Label / Placeholder Text (or upload PNG)
+                  </label>
+                  <div className="flex gap-4">
+                    <input
+                      type="text"
+                      required
+                      placeholder="e.g. ISO, IFC, Saudi Made, SASO"
+                      value={certForm.logo}
+                      onChange={(e) => setCertForm({ ...certForm, logo: e.target.value })}
+                      className="flex-grow px-4 py-2 border border-stone-200 text-sm focus:outline-none focus:border-accent bg-white text-stone-900"
+                    />
+                    <div className="relative shrink-0">
+                      <input
+                        type="file"
+                        accept="image/*"
+                        id="upload-cert-logo"
+                        className="hidden"
+                        onChange={(e) => handleImageUpload(e, (url) => setCertForm({ ...certForm, logo: url }))}
+                      />
+                      <label 
+                        htmlFor="upload-cert-logo"
+                        className="px-4 py-2.5 bg-stone-100 border border-stone-200 text-xs font-semibold tracking-wider uppercase cursor-pointer hover:bg-stone-200 block text-stone-700 select-none"
+                      >
+                        {isUploading ? "Uploading..." : "Upload Logo"}
+                      </label>
+                    </div>
+                  </div>
+                  <p className="text-[10px] text-stone-400 mt-1">
+                    If you don't upload an image, the placeholder text entered will be rendered in a minimalist luxury text badge inline.
+                  </p>
+                </div>
+
+                <button type="submit" className="btn-primary py-3 px-6 text-xs mt-2">
+                  Create Badge
+                </button>
+              </form>
+            </div>
+
+            {/* List & Delete Certification Badges */}
+            <div className="bg-white border border-stone-200 p-8">
+              <h3 className="font-serif text-lg text-primary mb-6 font-medium">Active Badges ({certifications?.length || 0})</h3>
+              {certifications?.length === 0 ? (
+                <p className="text-stone-400 text-sm font-light">No certifications active. They won't display in the Brand Story section.</p>
+              ) : (
+                <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-6">
+                  {certifications?.map((cert) => (
+                    <div key={cert.id} className="border border-stone-200 p-4 flex flex-col justify-between items-center text-center bg-stone-50 group relative">
+                      <div className="h-16 w-full flex items-center justify-center mb-4">
+                        {cert.logo.startsWith("http") || cert.logo.startsWith("data:") ? (
+                          <img src={cert.logo} alt={cert.name} className="max-h-12 max-w-full object-contain" />
+                        ) : (
+                          <span className="text-xs font-sans font-bold uppercase tracking-wider text-stone-600 bg-white border border-stone-200 px-3 py-1.5">
+                            {cert.logo}
+                          </span>
+                        )}
+                      </div>
+                      <div className="space-y-1">
+                        <span className="block text-[10px] font-bold text-stone-700 truncate max-w-[120px]">{cert.name}</span>
+                      </div>
+                      
+                      <button
+                        onClick={() => {
+                          if (confirm(`Are you sure you want to delete ${cert.name}?`)) {
+                            deleteCertification(cert.id);
+                          }
+                        }}
+                        className="mt-4 px-2 py-1 bg-red-50 hover:bg-red-100 text-red-600 text-[9px] font-bold uppercase tracking-wider border border-red-200 cursor-pointer"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Closing main div */}
+        <div className="h-1"></div>
 
       </main>
     </div>
