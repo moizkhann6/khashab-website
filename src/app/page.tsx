@@ -141,8 +141,24 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 6. Dynamic Showcase Gallery */}
-      <ImageGallery />
+      {/* 6. Portfolio Showcase Gallery */}
+      <section className="bg-white py-24 lg:py-32 border-b border-stone-100">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <span className="text-xs font-bold text-accent uppercase tracking-widest block mb-4">
+              Featured Portfolio
+            </span>
+            <h2 className="text-3xl lg:text-4xl font-serif text-primary mb-4">
+              Our High-End Projects
+            </h2>
+            <p className="text-stone-500 font-light text-sm leading-relaxed">
+              Explore a curated selection of our healthcare, commercial, and residential installations completed across Saudi Arabia.
+            </p>
+          </div>
+
+          <ImageGallery />
+        </div>
+      </section>
 
       {/* 7. Client Partners logos (B2B Networks) */}
       <section className="bg-sand-light py-20 lg:py-28 border-b border-stone-100">
