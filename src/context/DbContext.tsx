@@ -39,6 +39,7 @@ export interface ClientPartner {
   id: string;
   name: string;
   role: string;
+  logo?: string;
 }
 
 export interface HeroSlide {

@@ -119,7 +119,8 @@ export async function initDbAction() {
       CREATE TABLE IF NOT EXISTS khashab_clients (
         id VARCHAR(255) PRIMARY KEY,
         name TEXT NOT NULL,
-        role TEXT NOT NULL
+        role TEXT NOT NULL,
+        logo TEXT DEFAULT NULL
       );
     `;
 
@@ -174,6 +175,13 @@ export async function initDbAction() {
     await sql`ALTER TABLE khashab_inquiries ALTER COLUMN category TYPE TEXT;`;
     await sql`ALTER TABLE khashab_inquiries ALTER COLUMN volume TYPE TEXT;`;
     await sql`ALTER TABLE khashab_inquiries ALTER COLUMN date TYPE TEXT;`;
+
+    // Ensure logo column exists on client partners table
+    try {
+      await sql`ALTER TABLE khashab_clients ADD COLUMN IF NOT EXISTS logo TEXT DEFAULT NULL;`;
+    } catch (e) {
+      console.error("Migration error adding logo column to khashab_clients:", e);
+    }
 
     // B. Seed Default Logo
     const logoCheck = await sql`SELECT * FROM khashab_logo LIMIT 1`;
@@ -314,8 +322,8 @@ export async function addClientAction(c: Omit<ClientPartner, "id">) {
   try {
     const id = `partner-${Date.now()}`;
     await sql`
-      INSERT INTO khashab_clients (id, name, role)
-      VALUES (${id}, ${c.name}, ${c.role})
+      INSERT INTO khashab_clients (id, name, role, logo)
+      VALUES (${id}, ${c.name}, ${c.role}, ${c.logo || null})
     `;
     return { success: true };
   } catch (error) {

@@ -187,14 +187,20 @@ export default function Home() {
             {clients.map((partner) => (
               <div
                 key={partner.id}
-                className="bg-white border border-stone-200 p-6 flex flex-col justify-center items-center text-center h-28 hover:border-accent transition-colors duration-200"
+                className="bg-white border border-stone-200 p-6 flex flex-col justify-center items-center text-center h-28 hover:border-accent transition-colors duration-200 overflow-hidden"
               >
-                <span className="font-serif text-sm font-semibold tracking-wider text-stone-850 uppercase block mb-1">
-                  {partner.name}
-                </span>
-                <span className="text-[9px] font-light text-stone-400 uppercase tracking-widest block">
-                  {partner.role}
-                </span>
+                {partner.logo ? (
+                  <img src={partner.logo} alt={partner.name} className="max-h-12 max-w-full object-contain" />
+                ) : (
+                  <>
+                    <span className="font-serif text-sm font-semibold tracking-wider text-stone-850 uppercase block mb-1">
+                      {partner.name}
+                    </span>
+                    <span className="text-[9px] font-light text-stone-400 uppercase tracking-widest block">
+                      {partner.role}
+                    </span>
+                  </>
+                )}
               </div>
             ))}
           </div>

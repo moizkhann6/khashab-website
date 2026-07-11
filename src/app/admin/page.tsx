@@ -67,7 +67,7 @@ export default function AdminPage() {
     specsString: "",
   });
   // Client Form State
-  const [clientForm, setClientForm] = useState({ name: "", role: "" });
+  const [clientForm, setClientForm] = useState({ name: "", role: "", logo: "" });
   // Slider Edit State
   const [editingSlideIdx, setEditingSlideIdx] = useState<number | null>(null);
   const [slideForm, setSlideForm] = useState<HeroSlide>({
@@ -147,7 +147,7 @@ export default function AdminPage() {
     e.preventDefault();
     if (clientForm.name.trim() && clientForm.role.trim()) {
       addClient(clientForm);
-      setClientForm({ name: "", role: "" });
+      setClientForm({ name: "", role: "", logo: "" });
       alert("Client partner added successfully!");
     }
   };
@@ -565,6 +565,27 @@ export default function AdminPage() {
                   />
                 </div>
 
+                <div>
+                  <label className="block text-xs font-semibold uppercase text-stone-600 tracking-wider mb-2">
+                    Partner Logo Image (Optional)
+                  </label>
+                  <div className="flex items-center gap-4">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => handleImageUpload(e, (url) => setClientForm({ ...clientForm, logo: url }))}
+                      disabled={isUploading}
+                      className="w-full px-4 py-2 border border-stone-200 text-sm focus:outline-none focus:border-accent bg-white text-stone-900 cursor-pointer"
+                    />
+                    {clientForm.logo && (
+                      <div className="w-16 h-12 relative border border-stone-200 shrink-0 bg-stone-100 flex items-center justify-center overflow-hidden">
+                        <img src={clientForm.logo} alt="Preview" className="w-full h-full object-cover" />
+                      </div>
+                    )}
+                  </div>
+                  {isUploading && <span className="text-[10px] text-accent animate-pulse block mt-1">Uploading logo...</span>}
+                </div>
+
                 <button type="submit" className="btn-primary py-3 text-xs w-full">
                   Add Partner Logo Label
                 </button>
@@ -578,17 +599,24 @@ export default function AdminPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {clients.map((c) => (
                   <div key={c.id} className="border border-stone-200 p-4 flex justify-between items-center gap-4 bg-stone-50">
-                    <div>
-                      <span className="font-serif text-sm font-semibold uppercase tracking-wider text-stone-800 block">
-                        {c.name}
-                      </span>
-                      <span className="text-[10px] text-stone-400 font-light uppercase tracking-widest mt-0.5 block">
-                        {c.role}
-                      </span>
+                    <div className="flex items-center gap-4">
+                      {c.logo ? (
+                        <div className="w-12 h-12 relative border border-stone-200 bg-white flex items-center justify-center overflow-hidden shrink-0">
+                          <img src={c.logo} alt={c.name} className="w-full h-full object-contain p-1" />
+                        </div>
+                      ) : null}
+                      <div>
+                        <span className="font-serif text-sm font-semibold uppercase tracking-wider text-stone-800 block text-left">
+                          {c.name}
+                        </span>
+                        <span className="text-[10px] text-stone-400 font-light uppercase tracking-widest mt-0.5 block text-left font-sans">
+                          {c.role}
+                        </span>
+                      </div>
                     </div>
                     <button
                       onClick={() => deleteClient(c.id)}
-                      className="text-stone-400 hover:text-red-600 transition-colors text-lg px-2 cursor-pointer"
+                      className="text-stone-400 hover:text-red-600 transition-colors text-lg px-2 cursor-pointer shrink-0"
                       title="Delete partner"
                     >
                       &times;
